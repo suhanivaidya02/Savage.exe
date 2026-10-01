@@ -45,8 +45,8 @@ import {
   DisruptionDiff,
 } from './types';
 
-// Lazy-load Three.js WebGL Scene
-const SceneBackground = lazy(() => import('./components/scene/SceneBackground'));
+// Minimalist Red & Black Background Animation
+import { MinimalRedBlackBackground } from './components/scene/MinimalRedBlackBackground';
 
 // Initial default tariff rates in Delhi NCR
 const DEFAULT_TARIFF_RATES: TariffRates = {
@@ -332,15 +332,12 @@ export const App: React.FC = () => {
         reduceMotion={reduceMotion}
       />
 
-      {/* FIXED FULL-VIEWPORT 3D WEBGL BACKGROUND LAYER (z-0) */}
-      <Suspense fallback={<div className="fixed inset-0 bg-[#070305] pointer-events-none z-0" />}>
-        <SceneBackground
-          scrollProgress={scrollProgress}
-          reduceMotion={reduceMotion}
-          activeSection={activeSection}
-          stationColor={stationTint}
-        />
-      </Suspense>
+      {/* MINIMALIST RED & BLACK LIGHTWEIGHT BACKGROUND (z-0) */}
+      <MinimalRedBlackBackground
+        scrollProgress={scrollProgress}
+        reduceMotion={reduceMotion}
+        stationColor={stationTint}
+      />
 
       {/* SCROLLABLE FOREGROUND CONTENT LAYER (z-20) - MEMOIZED TO PREVENT SCROLL RE-RENDERING */}
       {useMemo(

@@ -20,6 +20,7 @@ import {
   Car
 } from 'lucide-react';
 import { KPIs } from '../types';
+import { MinimalHeroCyberCar } from './scene/MinimalHeroCyberCar';
 
 interface HeroSectionProps {
   kpis: KPIs | null;
@@ -313,16 +314,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Center Transparent Stage Window (Unobstructed for 3D EV Sedan) */}
-          <div className="relative flex-1 w-full h-64 lg:h-80 flex items-center justify-center pointer-events-none">
-            {/* Holographic Status Pill */}
-            <div className="absolute bottom-4 flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 text-xs font-mono shadow-xl backdrop-blur-md pointer-events-auto">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-              <span className="text-slate-300">ACTIVE DOCK:</span>
-              <span className="text-red-400 font-bold">{currentSt.name.split('(')[0]}</span>
-              <span className="text-slate-500">·</span>
-              <span className="text-amber-300 font-bold">{currentSt.power}</span>
-            </div>
+          {/* Center Stage: Minimalist Red & Black Holographic Cyber Car */}
+          <div className="relative flex-1 w-full flex items-center justify-center">
+            <MinimalHeroCyberCar
+              stationKey={selectedStation}
+              stationColor={currentSt.color}
+              stationName={currentSt.name}
+              power={currentSt.power}
+            />
           </div>
 
           {/* Right Floating HUD: Station Economics, Session Math & Degradation */}
