@@ -23,13 +23,11 @@ export const Experience: React.FC<ExperienceProps> = ({
       <fogExp2 attach="fog" args={['#070305', 0.028]} />
 
       {/* Scene Lighting Architecture */}
-      <ambientLight intensity={0.4} color="#1c070c" />
+      <ambientLight intensity={0.45} color="#1c070c" />
       <directionalLight
         position={[6, 12, 8]}
         intensity={1.6}
         color="#ffebee"
-        castShadow
-        shadow-mapSize={[1024, 1024]}
       />
       {/* Hot Red Cyber Fill Light */}
       <directionalLight position={[-8, 6, -5]} intensity={1.2} color="#ff1e42" />
@@ -40,11 +38,10 @@ export const Experience: React.FC<ExperienceProps> = ({
       <spotLight
         position={[0, 8, 2]}
         target-position={[0, 0.5, 0]}
-        intensity={3.0}
+        intensity={2.8}
         angle={0.65}
         penumbra={0.7}
         color={stationColor}
-        castShadow
       />
 
       {/* Cyber City & Ground Grid */}
@@ -52,7 +49,7 @@ export const Experience: React.FC<ExperienceProps> = ({
       <CitySkyline />
 
       {/* Energy Sparks / Molten Embers */}
-      {!isMobile && <ParticleField count={180} />}
+      {!isMobile && <ParticleField count={50} />}
 
       {/* The Central Procedural EV Sedan */}
       <EvSedan scrollProgress={scrollProgress} stationColor={stationColor} />

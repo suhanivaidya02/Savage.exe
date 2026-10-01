@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense, useCallback, useRef } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useCallback, useRef, useMemo } from 'react';
 import { useLenisScrollTrigger } from './hooks/useLenisScrollTrigger';
 import { ScrollReveal } from './components/motion/ScrollReveal';
 
@@ -334,85 +334,111 @@ export const App: React.FC = () => {
         />
       </Suspense>
 
-      {/* SCROLLABLE FOREGROUND CONTENT LAYER (z-20) */}
-      <div className="relative z-20">
-        {/* Chapter 1: Hero */}
-        <HeroSection
-          kpis={kpis}
-          onExploreClick={() => scrollTo('problem')}
-          onStationSelect={(color) => setStationTint(color)}
-        />
+      {/* SCROLLABLE FOREGROUND CONTENT LAYER (z-20) - MEMOIZED TO PREVENT SCROLL RE-RENDERING */}
+      {useMemo(
+        () => (
+          <div className="relative z-20">
+            {/* Chapter 1: Hero */}
+            <HeroSection
+              kpis={kpis}
+              onExploreClick={() => scrollTo('problem')}
+              onStationSelect={(color) => setStationTint(color)}
+            />
 
-        {/* Chapter 2: The Problem */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <ProblemSection />
-        </ScrollReveal>
+            {/* Chapter 2: The Problem */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <ProblemSection />
+            </ScrollReveal>
 
-        {/* Chapter 3: Meet the Fleet */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <FleetSection vehicles={vehicles} shifts={shifts} />
-        </ScrollReveal>
+            {/* Chapter 3: Meet the Fleet */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <FleetSection vehicles={vehicles} shifts={shifts} />
+            </ScrollReveal>
 
-        {/* Chapter 4: The 7 AI Agents */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <AgentsGateSection telemetry={telemetry} />
-        </ScrollReveal>
+            {/* Chapter 4: The 7 AI Agents */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <AgentsGateSection telemetry={telemetry} />
+            </ScrollReveal>
 
-        {/* Chapter 5: Multi-Objective Optimizer & Live Tariff Tweak Sliders */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <OptimizerControlsSection
-            weights={weights}
-            tariffRates={tariffRates}
-            kpis={kpis}
-            onLiveWeightsChange={handleLiveWeightsChange}
-            onLiveTariffChange={handleLiveTariffChange}
-            isLoading={isOptimizing}
-          />
-        </ScrollReveal>
+            {/* Chapter 5: Multi-Objective Optimizer & Live Tariff Tweak Sliders */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <OptimizerControlsSection
+                weights={weights}
+                tariffRates={tariffRates}
+                kpis={kpis}
+                onLiveWeightsChange={handleLiveWeightsChange}
+                onLiveTariffChange={handleLiveTariffChange}
+                isLoading={isOptimizing}
+              />
+            </ScrollReveal>
 
-        {/* Chapter 6: Charging Schedule (Gantt Matrix) */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <GanttScheduleSection
-            vehicles={vehicles}
-            shifts={shifts}
-            schedules={schedules}
-            tariff={tariff}
-          />
-        </ScrollReveal>
+            {/* Chapter 6: Charging Schedule (Gantt Matrix) */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <GanttScheduleSection
+                vehicles={vehicles}
+                shifts={shifts}
+                schedules={schedules}
+                tariff={tariff}
+              />
+            </ScrollReveal>
 
-        {/* Chapter 7: Measurable Fleet Savings */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <SavingsSection kpis={kpis} />
-        </ScrollReveal>
+            {/* Chapter 7: Measurable Fleet Savings */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <SavingsSection kpis={kpis} />
+            </ScrollReveal>
 
-        {/* Chapter 8: Explain It (Provenance & Natural Language) */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <ExplainSection explanations={explanations} />
-        </ScrollReveal>
+            {/* Chapter 8: Explain It (Provenance & Natural Language) */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <ExplainSection explanations={explanations} />
+            </ScrollReveal>
 
-        {/* Chapter 9: What-If / Disruptions */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <DisruptionSection
-            onTriggerDisruption={handleTriggerDisruption}
-            pendingDiff={pendingDiff}
-            isLoading={isDisrupting}
-            onNavigateToApproval={() => scrollTo('approval')}
-          />
-        </ScrollReveal>
+            {/* Chapter 9: What-If / Disruptions */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <DisruptionSection
+                onTriggerDisruption={handleTriggerDisruption}
+                pendingDiff={pendingDiff}
+                isLoading={isDisrupting}
+                onNavigateToApproval={() => scrollTo('approval')}
+              />
+            </ScrollReveal>
 
-        {/* Chapter 10: Human-in-the-Loop Approval */}
-        <ScrollReveal reduceMotion={reduceMotion}>
-          <ApprovalSection
-            hasPendingApproval={approvalStatus === 'PENDING_APPROVAL'}
-            pendingDiff={pendingDiff}
-            onApprove={handleApprove}
-            isLoading={isApproving}
-          />
-        </ScrollReveal>
+            {/* Chapter 10: Human-in-the-Loop Approval */}
+            <ScrollReveal reduceMotion={reduceMotion}>
+              <ApprovalSection
+                hasPendingApproval={approvalStatus === 'PENDING_APPROVAL'}
+                pendingDiff={pendingDiff}
+                onApprove={handleApprove}
+                isLoading={isApproving}
+              />
+            </ScrollReveal>
 
-        {/* Chapter 11: Footer */}
-        <FooterSection />
-      </div>
+            {/* Chapter 11: Footer */}
+            <FooterSection />
+          </div>
+        ),
+        [
+          kpis,
+          reduceMotion,
+          vehicles,
+          shifts,
+          telemetry,
+          weights,
+          tariffRates,
+          handleLiveWeightsChange,
+          handleLiveTariffChange,
+          isOptimizing,
+          schedules,
+          tariff,
+          explanations,
+          handleTriggerDisruption,
+          pendingDiff,
+          isDisrupting,
+          approvalStatus,
+          handleApprove,
+          isApproving,
+          scrollTo,
+        ]
+      )}
     </div>
   );
 };

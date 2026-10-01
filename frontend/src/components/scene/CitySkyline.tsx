@@ -1,99 +1,97 @@
 import React, { useMemo } from 'react';
-import * as THREE from 'three';
 
 export const CitySkyline: React.FC = () => {
-  const { buildingData } = useMemo(() => {
-    const buildings: { position: [number, number, number]; scale: [number, number, number] }[] = [];
-    const seedRandom = (seed: number) => {
-      const x = Math.sin(seed++) * 10000;
-      return x - Math.floor(x);
-    };
+  // Lightweight 16 iconic cyberpunk skyline monoliths
+  const { buildings } = useMemo(() => {
+    const list: { position: [number, number, number]; scale: [number, number, number]; hasBeacon: boolean; color: string }[] = [];
+    
+    // Left cityscape silhouette (8 towers)
+    const leftCoords: [number, number, number, number, number][] = [
+      [-12, -15, 3.2, 16, 3.5],
+      [-16, -5, 4.0, 22, 4.2],
+      [-21, 5, 3.8, 14, 3.8],
+      [-14, 15, 3.5, 18, 3.6],
+      [-24, -10, 4.5, 26, 4.5],
+      [-22, 18, 3.6, 20, 3.6],
+      [-18, 25, 4.2, 15, 4.0],
+      [-26, 8, 4.8, 24, 4.5],
+    ];
 
-    let seed = 42;
-    // Left cityscape cluster
-    for (let x = -28; x <= -8; x += 3.5) {
-      for (let z = -20; z <= 25; z += 4.5) {
-        const height = 4 + seedRandom(seed++) * 14;
-        const width = 2.2 + seedRandom(seed++) * 1.5;
-        const depth = 2.2 + seedRandom(seed++) * 1.8;
-        buildings.push({
-          position: [x, height / 2 - 0.5, z],
-          scale: [width, height, depth],
-        });
-      }
-    }
+    // Right cityscape silhouette (8 towers)
+    const rightCoords: [number, number, number, number, number][] = [
+      [12, -15, 3.2, 16, 3.5],
+      [16, -5, 4.0, 22, 4.2],
+      [21, 5, 3.8, 14, 3.8],
+      [14, 15, 3.5, 18, 3.6],
+      [24, -10, 4.5, 26, 4.5],
+      [22, 18, 3.6, 20, 3.6],
+      [18, 25, 4.2, 15, 4.0],
+      [26, 8, 4.8, 24, 4.5],
+    ];
 
-    // Right cityscape cluster
-    for (let x = 8; x <= 28; x += 3.5) {
-      for (let z = -20; z <= 25; z += 4.5) {
-        const height = 4 + seedRandom(seed++) * 14;
-        const width = 2.2 + seedRandom(seed++) * 1.5;
-        const depth = 2.2 + seedRandom(seed++) * 1.8;
-        buildings.push({
-          position: [x, height / 2 - 0.5, z],
-          scale: [width, height, depth],
-        });
-      }
-    }
+    [...leftCoords, ...rightCoords].forEach(([x, z, w, h, d], i) => {
+      list.push({
+        position: [x, h / 2 - 0.5, z],
+        scale: [w, h, d],
+        hasBeacon: i % 2 === 0,
+        color: i % 3 === 0 ? '#ff6b2b' : '#ff1e42',
+      });
+    });
 
-    return { buildingData: buildings };
+    return { buildings: list };
   }, []);
 
   return (
     <group>
-      {buildingData.map((b, i) => (
+      {buildings.map((b, i) => (
         <group key={i} position={b.position}>
-          {/* Main Dark Obsidian Shell */}
-          <mesh scale={b.scale} castShadow receiveShadow>
+          {/* Main Obsidian Tower */}
+          <mesh scale={b.scale}>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-              color="#0d0407"
-              metalness={0.8}
-              roughness={0.4}
+              color="#0c0407"
+              metalness={0.85}
+              roughness={0.35}
             />
           </mesh>
 
-          {/* Roof Edge Glowing Hot Red Beacon */}
-          {i % 3 === 0 && (
+          {/* Glowing Rooftop Beacon */}
+          {b.hasBeacon && (
             <mesh position={[0, b.scale[1] / 2 + 0.1, 0]}>
-              <boxGeometry args={[b.scale[0] * 0.95, 0.12, b.scale[2] * 0.95]} />
+              <boxGeometry args={[b.scale[0] * 0.95, 0.15, b.scale[2] * 0.95]} />
               <meshStandardMaterial
-                color="#ff1e42"
-                emissive="#ff1e42"
-                emissiveIntensity={2.5}
+                color={b.color}
+                emissive={b.color}
+                emissiveIntensity={2.8}
               />
             </mesh>
           )}
 
-          {/* Emissive Vertical Window Ribbons */}
-          {i % 2 === 0 && (
-            <mesh position={[0, 0, b.scale[2] / 2 + 0.02]}>
-              <planeGeometry args={[0.25, b.scale[1] * 0.8]} />
-              <meshStandardMaterial
-                color={i % 4 === 0 ? '#ff6b2b' : '#ff1e42'}
-                emissive={i % 4 === 0 ? '#ff6b2b' : '#ff1e42'}
-                emissiveIntensity={2.2}
-              />
-            </mesh>
-          )}
+          {/* Emissive Vertical Laser Core Ribbon */}
+          <mesh position={[0, 0, b.scale[2] / 2 + 0.02]}>
+            <planeGeometry args={[0.2, b.scale[1] * 0.75]} />
+            <meshStandardMaterial
+              color={b.color}
+              emissive={b.color}
+              emissiveIntensity={2.2}
+            />
+          </mesh>
         </group>
       ))}
 
-      {/* Distant Depot S1/S2/S3 Communication Monoliths */}
-      <group position={[-14, 10, -22]}>
+      {/* Distant Depot S1/S2 Spire Antennas */}
+      <group position={[-16, 12, -22]}>
         <mesh>
-          <cylinderGeometry args={[0.1, 0.4, 18, 8]} />
+          <cylinderGeometry args={[0.08, 0.3, 16, 6]} />
           <meshStandardMaterial color="#ff1e42" emissive="#ff1e42" emissiveIntensity={3.5} />
         </mesh>
-        <pointLight distance={12} intensity={4} color="#ff1e42" />
       </group>
 
-      <group position={[14, 10, -22]}>
+      <group position={[16, 12, -22]}>
         <mesh>
-          <cylinderGeometry args={[0.1, 0.4, 18, 8]} />
+          <cylinderGeometry args={[0.08, 0.3, 16, 6]} />
           <meshStandardMaterial color="#ff6b2b" emissive="#ff6b2b" emissiveIntensity={3.5} />
         </mesh>
-        <pointLight distance={12} intensity={4} color="#ff6b2b" />
       </group>
     </group>
   );

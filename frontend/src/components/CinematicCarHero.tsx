@@ -31,13 +31,13 @@ export const CinematicCarHero: React.FC<CinematicCarHeroProps> = ({
       {/* 2px Kinetic Hot Red Scroll Progress Line */}
       <div className="w-full h-[2px] bg-slate-900/60 relative">
         <div
-          className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 shadow-[0_0_8px_#ff1e42] transition-all duration-150 ease-out"
+          className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 shadow-[0_0_8px_#ff1e42]"
           style={{ width: `${Math.round(scrollProgress * 100)}%` }}
         />
 
         {/* Micro indicator gliding on the line */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_#ff1e42] flex items-center justify-center transition-all duration-150 ease-out"
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_#ff1e42] flex items-center justify-center pointer-events-none"
           style={{ left: `${Math.round(scrollProgress * 100)}%` }}
         >
           <div className="w-1.5 h-1.5 rounded-full bg-white" />

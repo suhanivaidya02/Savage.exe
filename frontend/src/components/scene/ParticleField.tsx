@@ -6,7 +6,7 @@ interface ParticleFieldProps {
   count?: number;
 }
 
-export const ParticleField: React.FC<ParticleFieldProps> = ({ count = 220 }) => {
+export const ParticleField: React.FC<ParticleFieldProps> = ({ count = 60 }) => {
   const pointsRef = useRef<THREE.Points>(null);
 
   const [positions, colors] = useMemo(() => {

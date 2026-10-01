@@ -32,7 +32,7 @@ export const EvSedan: React.FC<EvSedanProps> = ({ scrollProgress, stationColor =
   return (
     <group ref={groupRef} position={[0, 0, 0]} scale={[1.1, 1.1, 1.1]}>
       {/* ================= MAIN CHASSIS / METALLIC HOT RED & CARBON ================= */}
-      <mesh position={[0, 0.45, 0]} castShadow receiveShadow>
+      <mesh position={[0, 0.45, 0]}>
         <boxGeometry args={[1.9, 0.45, 4.4]} />
         <meshStandardMaterial
           color="#160408"
@@ -42,27 +42,26 @@ export const EvSedan: React.FC<EvSedanProps> = ({ scrollProgress, stationColor =
       </mesh>
 
       {/* Aerodynamic Front Hood Slope */}
-      <mesh position={[0, 0.48, 1.6]} rotation={[-0.15, 0, 0]} castShadow>
+      <mesh position={[0, 0.48, 1.6]} rotation={[-0.15, 0, 0]}>
         <boxGeometry args={[1.82, 0.28, 1.3]} />
         <meshStandardMaterial color="#20060b" metalness={0.9} roughness={0.2} />
       </mesh>
 
       {/* Aerodynamic Rear Fastback Trunk Deck */}
-      <mesh position={[0, 0.52, -1.6]} rotation={[0.12, 0, 0]} castShadow>
+      <mesh position={[0, 0.52, -1.6]} rotation={[0.12, 0, 0]}>
         <boxGeometry args={[1.82, 0.28, 1.2]} />
         <meshStandardMaterial color="#20060b" metalness={0.9} roughness={0.2} />
       </mesh>
 
-      {/* ================= AERODYNAMIC CABIN & SMOKED GLASS CANOPY ================= */}
-      <mesh position={[0, 0.95, -0.1]} castShadow>
+      {/* ================= AERODYNAMIC CABIN & SMOKED GLASS CANOPY (Zero Transmission Pass) ================= */}
+      <mesh position={[0, 0.95, -0.1]}>
         <boxGeometry args={[1.5, 0.55, 2.2]} />
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           color="#140206"
-          transmission={0.65}
-          opacity={0.88}
+          opacity={0.84}
           transparent
-          roughness={0.1}
-          ior={1.5}
+          roughness={0.12}
+          metalness={0.7}
         />
       </mesh>
 
@@ -94,26 +93,6 @@ export const EvSedan: React.FC<EvSedanProps> = ({ scrollProgress, stationColor =
         <boxGeometry args={[0.25, 0.1, 0.08]} />
         <meshStandardMaterial color="#ff3366" emissive="#ff3366" emissiveIntensity={4.5} />
       </mesh>
-
-      {/* Headlight Volumetric Beam Projectors */}
-      <spotLight
-        position={[-0.6, 0.55, 2.3]}
-        target-position={[-0.6, 0, 12]}
-        angle={0.45}
-        penumbra={0.6}
-        intensity={3.2}
-        color="#ff1e42"
-        castShadow
-      />
-      <spotLight
-        position={[0.6, 0.55, 2.3]}
-        target-position={[0.6, 0, 12]}
-        angle={0.45}
-        penumbra={0.6}
-        intensity={3.2}
-        color="#ff1e42"
-        castShadow
-      />
 
       {/* ================= REAR CRIMSON FULL-WIDTH LIGHTBAR ================= */}
       <mesh position={[0, 0.56, -2.21]}>
@@ -160,18 +139,18 @@ export const EvSedan: React.FC<EvSedanProps> = ({ scrollProgress, stationColor =
           }}
         >
           {/* Tire Ring */}
-          <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
-            <cylinderGeometry args={[0.36, 0.36, 0.22, 24]} />
+          <mesh rotation={[0, 0, Math.PI / 2]}>
+            <cylinderGeometry args={[0.36, 0.36, 0.22, 18]} />
             <meshStandardMaterial color="#0c0709" roughness={0.7} />
           </mesh>
           {/* Aero Turbine Rim */}
           <mesh rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.26, 0.26, 0.23, 16]} />
+            <cylinderGeometry args={[0.26, 0.26, 0.23, 14]} />
             <meshStandardMaterial color="#2a0d14" metalness={0.9} roughness={0.2} />
           </mesh>
           {/* Glowing Hubcap Center */}
           <mesh rotation={[0, 0, Math.PI / 2]} position={[pos.x > 0 ? 0.12 : -0.12, 0, 0]}>
-            <cylinderGeometry args={[0.08, 0.08, 0.04, 12]} />
+            <cylinderGeometry args={[0.08, 0.08, 0.04, 10]} />
             <meshStandardMaterial color="#ff1e42" emissive="#ff1e42" emissiveIntensity={3.0} />
           </mesh>
         </group>

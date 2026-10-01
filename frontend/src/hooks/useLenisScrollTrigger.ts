@@ -42,42 +42,64 @@ export function useLenisScrollTrigger({ reduceMotion }: UseLenisScrollTriggerPro
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
-      setScrollProgress(progress);
+    // IntersectionObserver for active section: Zero forced reflows!
+    const sections = [
+      'hero',
+      'problem',
+      'fleet',
+      'agents',
+      'optimizer',
+      'schedule',
+      'savings',
+      'explain',
+      'disrupt',
+      'approval',
+    ];
 
-      // Determine active section
-      const sections = [
-        'hero',
-        'problem',
-        'fleet',
-        'agents',
-        'optimizer',
-        'schedule',
-        'savings',
-        'explain',
-        'disrupt',
-        'approval',
-      ];
-
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.2) {
-            setActiveSection(id);
-            break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
         }
+      },
+      {
+        rootMargin: '-20% 0px -50% 0px',
+        threshold: 0.1,
       }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // Throttled RAF scroll progress updater without layout thrashing
+    let rafId: number | null = null;
+    let lastProgress = -1;
+
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const scrollY = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+        // Only update React state when change is noticeable (prevents re-render spam)
+        if (Math.abs(progress - lastProgress) > 0.002) {
+          lastProgress = progress;
+          setScrollProgress(progress);
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       ScrollTrigger.getAll().forEach((st) => st.kill());

@@ -10,6 +10,8 @@ export const ScrollCameraRig: React.FC<ScrollCameraRigProps> = ({ scrollProgress
   const { camera } = useThree();
   const currentPos = useRef(new THREE.Vector3(0, 3.2, 7.5));
   const currentLookAt = useRef(new THREE.Vector3(0, 0.8, 0));
+  const tempTargetPos = useRef(new THREE.Vector3());
+  const tempTargetLook = useRef(new THREE.Vector3());
 
   // 6 Narrative Waypoints mapped to the 10 chapters
   const waypoints = [
@@ -50,8 +52,8 @@ export const ScrollCameraRig: React.FC<ScrollCameraRigProps> = ({ scrollProgress
     // Smooth cubic hermite easing
     const smoothFactor = factor * factor * (3 - 2 * factor);
 
-    const targetPos = new THREE.Vector3().lerpVectors(p0.pos, p1.pos, smoothFactor);
-    const targetLook = new THREE.Vector3().lerpVectors(p0.lookAt, p1.lookAt, smoothFactor);
+    const targetPos = tempTargetPos.current.lerpVectors(p0.pos, p1.pos, smoothFactor);
+    const targetLook = tempTargetLook.current.lerpVectors(p0.lookAt, p1.lookAt, smoothFactor);
 
     // Mouse subtle parallax tilt
     const mouseX = state.mouse.x * 0.4;

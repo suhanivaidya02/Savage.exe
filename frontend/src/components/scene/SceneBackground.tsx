@@ -36,7 +36,7 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <Suspense fallback={<div className="w-full h-full bg-[#05080f]" />}>
         <Canvas
-          dpr={isMobile ? [1, 1.2] : [1, 1.5]}
+          dpr={1}
           gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
           camera={{ position: [3.2, 2.2, 6.0], fov: 45 }}
         >
