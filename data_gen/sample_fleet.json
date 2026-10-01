@@ -1,0 +1,618 @@
+{
+  "metadata": {
+    "project": "Virexa",
+    "version": "1.0.0",
+    "currency": "INR",
+    "location_context": "NCR / Delhi Fleet Depot",
+    "vehicle_count": 20,
+    "station_count": 3,
+    "seed": 42
+  },
+  "vehicles": [
+    {
+      "id": "V01",
+      "name": "E-Rickshaw V01",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.51,
+      "battery_health": 0.84,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V02",
+      "name": "E-Rickshaw V02",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.31,
+      "battery_health": 0.85,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V03",
+      "name": "E-Rickshaw V03",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.42,
+      "battery_health": 0.84,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V04",
+      "name": "E-Rickshaw V04",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.49,
+      "battery_health": 0.92,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V05",
+      "name": "E-Rickshaw V05",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.42,
+      "battery_health": 0.9,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V06",
+      "name": "E-Rickshaw V06",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.25,
+      "battery_health": 0.95,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V07",
+      "name": "E-Rickshaw V07",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.31,
+      "battery_health": 0.97,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V08",
+      "name": "E-Rickshaw V08",
+      "type": "e-rickshaw",
+      "battery_capacity_kwh": 8.0,
+      "max_charge_kw": 3.3,
+      "current_soc": 0.4,
+      "battery_health": 0.89,
+      "kwh_per_km": 0.09,
+      "description": "Mahindra Treo / Piaggio Ape E-City class 3-wheeler",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V09",
+      "name": "Express Van V09",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.48,
+      "battery_health": 0.92,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V10",
+      "name": "Express Van V10",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.3,
+      "battery_health": 0.91,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V11",
+      "name": "Express Van V11",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.22,
+      "battery_health": 0.85,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V12",
+      "name": "Express Van V12",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.5,
+      "battery_health": 0.87,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V13",
+      "name": "Express Van V13",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.32,
+      "battery_health": 0.91,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V14",
+      "name": "Express Van V14",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.29,
+      "battery_health": 0.88,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V15",
+      "name": "Express Van V15",
+      "type": "delivery-van",
+      "battery_capacity_kwh": 30.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.31,
+      "battery_health": 0.93,
+      "kwh_per_km": 0.3,
+      "description": "Tata Ace EV / Euler Storm class urban delivery van",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V16",
+      "name": "Campus Shuttle V16",
+      "type": "campus-shuttle",
+      "battery_capacity_kwh": 20.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.62,
+      "battery_health": 0.91,
+      "kwh_per_km": 0.2,
+      "description": "Campus Electric Minibus (IIT / Tech Park feeder)",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V17",
+      "name": "Campus Shuttle V17",
+      "type": "campus-shuttle",
+      "battery_capacity_kwh": 20.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.68,
+      "battery_health": 0.97,
+      "kwh_per_km": 0.2,
+      "description": "Campus Electric Minibus (IIT / Tech Park feeder)",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V18",
+      "name": "Campus Shuttle V18",
+      "type": "campus-shuttle",
+      "battery_capacity_kwh": 20.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.5,
+      "battery_health": 0.97,
+      "kwh_per_km": 0.2,
+      "description": "Campus Electric Minibus (IIT / Tech Park feeder)",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V19",
+      "name": "Campus Shuttle V19",
+      "type": "campus-shuttle",
+      "battery_capacity_kwh": 20.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.41,
+      "battery_health": 0.88,
+      "kwh_per_km": 0.2,
+      "description": "Campus Electric Minibus (IIT / Tech Park feeder)",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "V20",
+      "name": "Campus Shuttle V20",
+      "type": "campus-shuttle",
+      "battery_capacity_kwh": 20.0,
+      "max_charge_kw": 7.2,
+      "current_soc": 0.6,
+      "battery_health": 0.91,
+      "kwh_per_km": 0.2,
+      "description": "Campus Electric Minibus (IIT / Tech Park feeder)",
+      "provenance": "GIVEN"
+    }
+  ],
+  "shifts": [
+    {
+      "vehicle_id": "V01",
+      "start_hour": 8,
+      "end_hour": 14,
+      "planned_km": 53,
+      "load_factor": 0.76,
+      "shift_name": "Morning Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V02",
+      "start_hour": 14,
+      "end_hour": 20,
+      "planned_km": 67,
+      "load_factor": 0.72,
+      "shift_name": "Evening Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V03",
+      "start_hour": 8,
+      "end_hour": 14,
+      "planned_km": 51,
+      "load_factor": 0.76,
+      "shift_name": "Morning Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V04",
+      "start_hour": 14,
+      "end_hour": 20,
+      "planned_km": 70,
+      "load_factor": 0.88,
+      "shift_name": "Evening Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V05",
+      "start_hour": 8,
+      "end_hour": 14,
+      "planned_km": 53,
+      "load_factor": 0.9,
+      "shift_name": "Morning Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V06",
+      "start_hour": 14,
+      "end_hour": 20,
+      "planned_km": 63,
+      "load_factor": 0.79,
+      "shift_name": "Evening Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V07",
+      "start_hour": 8,
+      "end_hour": 14,
+      "planned_km": 55,
+      "load_factor": 0.73,
+      "shift_name": "Morning Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V08",
+      "start_hour": 14,
+      "end_hour": 20,
+      "planned_km": 61,
+      "load_factor": 0.85,
+      "shift_name": "Evening Urban Corridor",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V09",
+      "start_hour": 9,
+      "end_hour": 17,
+      "planned_km": 99,
+      "load_factor": 0.77,
+      "shift_name": "Hub-to-Spoke Dispatch 9:00-17:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V10",
+      "start_hour": 10,
+      "end_hour": 18,
+      "planned_km": 87,
+      "load_factor": 0.93,
+      "shift_name": "Hub-to-Spoke Dispatch 10:00-18:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V11",
+      "start_hour": 10,
+      "end_hour": 18,
+      "planned_km": 80,
+      "load_factor": 0.96,
+      "shift_name": "Hub-to-Spoke Dispatch 10:00-18:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V12",
+      "start_hour": 10,
+      "end_hour": 18,
+      "planned_km": 98,
+      "load_factor": 0.79,
+      "shift_name": "Hub-to-Spoke Dispatch 10:00-18:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V13",
+      "start_hour": 9,
+      "end_hour": 17,
+      "planned_km": 85,
+      "load_factor": 0.88,
+      "shift_name": "Hub-to-Spoke Dispatch 9:00-17:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V14",
+      "start_hour": 10,
+      "end_hour": 18,
+      "planned_km": 110,
+      "load_factor": 0.8,
+      "shift_name": "Hub-to-Spoke Dispatch 10:00-18:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V15",
+      "start_hour": 9,
+      "end_hour": 17,
+      "planned_km": 89,
+      "load_factor": 0.96,
+      "shift_name": "Hub-to-Spoke Dispatch 9:00-17:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V16",
+      "start_hour": 7,
+      "end_hour": 13,
+      "planned_km": 57,
+      "load_factor": 0.7,
+      "shift_name": "Campus Transit Ring 7:00-13:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V17",
+      "start_hour": 7,
+      "end_hour": 13,
+      "planned_km": 65,
+      "load_factor": 0.7,
+      "shift_name": "Campus Transit Ring 7:00-13:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V18",
+      "start_hour": 15,
+      "end_hour": 21,
+      "planned_km": 75,
+      "load_factor": 0.76,
+      "shift_name": "Campus Transit Ring 15:00-21:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V19",
+      "start_hour": 15,
+      "end_hour": 21,
+      "planned_km": 72,
+      "load_factor": 0.78,
+      "shift_name": "Campus Transit Ring 15:00-21:00",
+      "provenance": "GIVEN"
+    },
+    {
+      "vehicle_id": "V20",
+      "start_hour": 11,
+      "end_hour": 17,
+      "planned_km": 73,
+      "load_factor": 0.75,
+      "shift_name": "Campus Transit Ring 11:00-17:00",
+      "provenance": "GIVEN"
+    }
+  ],
+  "stations": [
+    {
+      "id": "S1",
+      "name": "Depot Main Hub",
+      "type": "depot_ac",
+      "slots": 6,
+      "max_power_kw": 7.2,
+      "down_hours": [
+        13
+      ],
+      "location": "North Fleet Yard",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "S2",
+      "name": "Depot Solar Canopy",
+      "type": "solar_ac",
+      "slots": 4,
+      "max_power_kw": 7.2,
+      "down_hours": [],
+      "location": "Central Green Terminal",
+      "provenance": "GIVEN"
+    },
+    {
+      "id": "S3",
+      "name": "Public Fast Charge Station",
+      "type": "public_dc",
+      "slots": 2,
+      "max_power_kw": 22.0,
+      "down_hours": [
+        19,
+        20
+      ],
+      "location": "Ring Road Hub",
+      "provenance": "GIVEN"
+    }
+  ],
+  "tariff": [
+    {
+      "hour": 0,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 1,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 2,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 3,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 4,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 5,
+      "rate_inr_per_kwh": 5.0,
+      "tier": "Off-Peak Night",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 6,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 7,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 8,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 9,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 10,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 11,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 12,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 13,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 14,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 15,
+      "rate_inr_per_kwh": 6.0,
+      "tier": "Solar Hours",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 16,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 17,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 18,
+      "rate_inr_per_kwh": 11.0,
+      "tier": "Evening Peak",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 19,
+      "rate_inr_per_kwh": 11.0,
+      "tier": "Evening Peak",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 20,
+      "rate_inr_per_kwh": 11.0,
+      "tier": "Evening Peak",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 21,
+      "rate_inr_per_kwh": 11.0,
+      "tier": "Evening Peak",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 22,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    },
+    {
+      "hour": 23,
+      "rate_inr_per_kwh": 8.0,
+      "tier": "Standard Normal",
+      "provenance": "ASSUMED"
+    }
+  ]
+}
