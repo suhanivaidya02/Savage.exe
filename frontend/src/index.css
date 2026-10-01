@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #070305;
+  --color-bg: #050203;
   --color-red: #ff1e42;
   --color-crimson: #e11d48;
   --color-amber: #ff6b2b;
@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: #070305;
+  background-color: #050203;
   color: #f1f5f9;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
@@ -24,97 +24,113 @@ body {
   color: #ffffff;
 }
 
-/* Performance optimized GPU layer */
+/* Typography */
 h1, h2, h3, .font-display {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
-/* Glassmorphism primitives with Hot Red / Obsidian tone - Lightweight GPU Blurs */
+/* Minimalist Red & Black Glassmorphism - Fast Lightweight Blurs */
 .glass-panel {
-  background: rgba(14, 5, 9, 0.88);
+  background: rgba(12, 4, 7, 0.88);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 30, 66, 0.22);
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.45);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel-subtle {
-  background: rgba(18, 7, 12, 0.75);
+  background: rgba(15, 5, 9, 0.75);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-pill {
-  background: rgba(16, 6, 11, 0.92);
+  background: rgba(14, 5, 8, 0.92);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 30, 66, 0.35);
 }
 
-/* Hot Red Glow effects */
+/* Minimalist Glow Accents */
 .glow-red {
-  box-shadow: 0 0 30px -4px rgba(255, 30, 66, 0.55);
+  box-shadow: 0 0 25px -4px rgba(255, 30, 66, 0.45);
 }
 
 .glow-crimson {
-  box-shadow: 0 0 30px -4px rgba(225, 29, 72, 0.55);
-}
-
-.glow-amber {
-  box-shadow: 0 0 25px -4px rgba(255, 107, 43, 0.45);
+  box-shadow: 0 0 25px -4px rgba(225, 29, 72, 0.45);
 }
 
 .text-glow-red {
-  text-shadow: 0 0 18px rgba(255, 30, 66, 0.75);
+  text-shadow: 0 0 16px rgba(255, 30, 66, 0.7);
 }
 
-.text-glow-amber {
-  text-shadow: 0 0 16px rgba(255, 107, 43, 0.65);
-}
-
-/* Hot Red Grid overlay background */
+/* Minimal Cyber Grid with animated subtle pulse */
 .bg-cyber-grid {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 30, 66, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 30, 66, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 30, 66, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 30, 66, 0.05) 1px, transparent 1px);
 }
 
 .bg-radial-gradient {
-  background: radial-gradient(circle at 50% 30%, rgba(255, 30, 66, 0.15) 0%, rgba(7, 3, 5, 0) 70%);
+  background: radial-gradient(circle at 50% 30%, rgba(255, 30, 66, 0.12) 0%, rgba(5, 2, 3, 0) 70%);
 }
 
-/* Custom sleek hot red scrollbar */
+/* Minimalist Red & Black Animations (GPU Accelerated & Lightweight) */
+@keyframes redLaserScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes minimalRedPulse {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.03);
+  }
+}
+
+.animate-minimal-pulse {
+  animation: minimalRedPulse 5s ease-in-out infinite;
+}
+
+.animate-laser-scan {
+  animation: redLaserScan 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Custom sleek red-and-black scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #070305;
+  background: #050203;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 30, 66, 0.4);
+  background: rgba(255, 30, 66, 0.35);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 30, 66, 0.8);
-}
-
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spinSlow 20s linear infinite;
+  background: rgba(255, 30, 66, 0.75);
 }
 
 /* Reduced motion preference */

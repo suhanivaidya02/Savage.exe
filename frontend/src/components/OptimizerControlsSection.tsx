@@ -53,15 +53,15 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
     <section id="optimizer" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-5xl mx-auto">
       {/* Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3 shadow-lg shadow-red-500/10">
           <Sliders className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-          <span>LIVE CONTROLLER · APNE HISAB SE TUNE KARO</span>
+          <span>LIVE CONTROLLER · MULTI-OBJECTIVE WEIGHT TUNER</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Tune Cost, Battery & Tariffs
         </h2>
         <p className="text-slate-300 max-w-xl mx-auto mt-3 text-sm sm:text-base leading-relaxed">
-          Neeche diye gaye sliders ko drag kijiye. Pure fleet ka <span className="text-red-400 font-bold font-mono">daily bill aur bachat turant live change</span> hogi!
+          Drag the sliders below to adjust optimization priorities in real time. Total fleet bill and savings <span className="text-red-400 font-bold font-mono">recalculate instantly with zero latency</span>.
         </p>
       </div>
 
@@ -72,25 +72,25 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             <div>
               <span className="text-[11px] font-mono uppercase text-slate-400">Total Live Fleet Bill:</span>
               <div className="text-2xl sm:text-3xl font-mono font-black text-white">
-                ₹{kpis.total_optimized_cost_inr.toLocaleString()}
+                &#8377;{kpis.total_optimized_cost_inr.toLocaleString()}
               </div>
-              <span className="text-[10px] text-slate-400">Pure 10 gaadiyon ka 24h kharcha</span>
+              <span className="text-[10px] text-slate-400">Combined 24-hour fleet electricity cost</span>
             </div>
 
             <div>
-              <span className="text-[11px] font-mono uppercase text-slate-400">Bina Planning Ka Bill:</span>
+              <span className="text-[11px] font-mono uppercase text-slate-400">Unmanaged Naive Bill:</span>
               <div className="text-xl sm:text-2xl font-mono font-bold text-rose-400 line-through">
-                ₹{kpis.naive_cost_inr.toLocaleString()}
+                &#8377;{kpis.naive_cost_inr.toLocaleString()}
               </div>
-              <span className="text-[10px] text-slate-400">Peak hour unmanaged charging</span>
+              <span className="text-[10px] text-slate-400">Immediate plug-in at shift end</span>
             </div>
 
             <div>
-              <span className="text-[11px] font-mono uppercase text-red-400 font-semibold">Live Daily Bachat (Savings):</span>
+              <span className="text-[11px] font-mono uppercase text-red-400 font-semibold">Live Daily Savings:</span>
               <div className="text-2xl sm:text-3xl font-mono font-black text-red-400 text-glow-red">
-                ₹{kpis.savings_inr.toLocaleString()} ({kpis.savings_percent}%)
+                &#8377;{kpis.savings_inr.toLocaleString()} ({kpis.savings_percent}%)
               </div>
-              <span className="text-[10px] text-emerald-400 font-semibold">Har roz itne rupaye bach rahe hain</span>
+              <span className="text-[10px] text-emerald-400 font-semibold">Financial arbitrage captured daily</span>
             </div>
 
             <div>
@@ -98,7 +98,7 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
               <div className="text-xl sm:text-2xl font-mono font-bold text-amber-300">
                 {kpis.ready_on_time_pct}%
               </div>
-              <span className="text-[10px] text-slate-400">Gaadiyan shift me ready</span>
+              <span className="text-[10px] text-slate-400">Fleet departure readiness guaranteed</span>
             </div>
           </div>
         )}
@@ -110,11 +110,11 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
               <div className="flex items-center gap-2">
                 <IndianRupee className="w-4 h-4 text-red-400" />
                 <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider">
-                  Bijli Ke Daam Badlo (Delhi NCR Tariffs)
+                  Grid Tariffs (Delhi NCR Time-of-Day Rates)
                 </h3>
               </div>
               <p className="text-[11px] text-slate-400 mt-0.5">
-                In rates ko badal kar dekhiye, upar ka total bill aur bachat turant recalculate hoga:
+                Adjust time-of-day tariff rates below to see instant recalculations:
               </p>
             </div>
             <div className="flex gap-2">
@@ -137,8 +137,8 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             {/* Night Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">🌙 Raat Ki Sasti Bijli:</span>
-                <span className="font-bold text-red-400 text-sm">₹{tariffRates.night.toFixed(1)}/kWh</span>
+                <span className="text-slate-300 font-bold">🌙 Night Off-Peak:</span>
+                <span className="font-bold text-red-400 text-sm">&#8377;{tariffRates.night.toFixed(1)}/kWh</span>
               </div>
               <input
                 type="range"
@@ -149,14 +149,14 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                 onChange={(e) => handleTariffSlider('night', parseFloat(e.target.value))}
                 className="w-full accent-red-500 cursor-pointer h-2 bg-slate-800 rounded-lg mt-2"
               />
-              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Off-Peak (11:00 PM - 06:00 AM)</span>
+              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Off-Peak (11:00 PM – 06:00 AM)</span>
             </div>
 
             {/* Solar Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">☀️ Clean Solar Bijli:</span>
-                <span className="font-bold text-amber-400 text-sm">₹{tariffRates.solar.toFixed(1)}/kWh</span>
+                <span className="text-slate-300 font-bold">☀️ Midday Clean Solar:</span>
+                <span className="font-bold text-amber-400 text-sm">&#8377;{tariffRates.solar.toFixed(1)}/kWh</span>
               </div>
               <input
                 type="range"
@@ -167,14 +167,14 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                 onChange={(e) => handleTariffSlider('solar', parseFloat(e.target.value))}
                 className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-800 rounded-lg mt-2"
               />
-              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Dopahar Solar (10:00 AM - 04:00 PM)</span>
+              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Midday Solar (10:00 AM – 04:00 PM)</span>
             </div>
 
             {/* Peak Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">🔥 Sham Ka Mehenga Peak:</span>
-                <span className="font-bold text-rose-400 text-sm">₹{tariffRates.peak.toFixed(1)}/kWh</span>
+                <span className="text-slate-300 font-bold">🔥 Evening Grid Peak:</span>
+                <span className="font-bold text-rose-400 text-sm">&#8377;{tariffRates.peak.toFixed(1)}/kWh</span>
               </div>
               <input
                 type="range"
@@ -185,7 +185,7 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                 onChange={(e) => handleTariffSlider('peak', parseFloat(e.target.value))}
                 className="w-full accent-rose-500 cursor-pointer h-2 bg-slate-800 rounded-lg mt-2"
               />
-              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Evening Grid Peak (05:00 PM - 10:00 PM)</span>
+              <span className="text-[10px] text-slate-400 font-mono mt-1.5 block">Evening Grid Peak (05:00 PM – 10:00 PM)</span>
             </div>
           </div>
         </div>
@@ -198,11 +198,11 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-red-400" />
                 <span className="text-xs font-mono text-slate-300 uppercase font-semibold">
-                  Aapko Kya Zyaada Chahiye? (1-Click Strategy Presets):
+                  Select 1-Click Strategy Preset:
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 mt-0.5">
-                Kisi bhi button ko click karke direct strategy choose kijiye:
+                Apply calibrated optimization strategies in a single click:
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -210,19 +210,19 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                 onClick={() => handlePreset('balanced')}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
               >
-                ⚖️ Balanced (Best of Both)
+                ⚖️ Balanced (Recommended)
               </button>
               <button
                 onClick={() => handlePreset('eco_cost')}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-500/40 transition-all"
               >
-                💰 Max Bachat (Paisa Bachao)
+                💰 Max Savings (Cost First)
               </button>
               <button
                 onClick={() => handlePreset('battery_preservation')}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40 transition-all"
               >
-                🛡️ Battery First (Lambi Umar)
+                🛡️ Battery Preservation (Health First)
               </button>
               <button
                 onClick={() => handlePreset('max_readiness')}
@@ -243,10 +243,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white font-display">
-                      1. Paisa Bachao (Cost Optimization Slider)
+                      1. Cost Minimization Weight (w_cost)
                     </h4>
                     <p className="text-xs text-slate-400">
-                      Isko badhane se AI saari charging sasti raat ki bijli (₹5) me shift kar deta hai.
+                      Prioritizes lowest tariff slots (Night off-peak & Solar) to minimize daily electricity bills.
                     </p>
                   </div>
                 </div>
@@ -274,10 +274,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white font-display">
-                      2. Battery Ki Umar Badhao (Battery Health Slider)
+                      2. Battery Health Preservation Weight (w_health)
                     </h4>
                     <p className="text-xs text-slate-400">
-                      Isko badhane se 22kW fast charger ka use kam hoga, battery garam nahi hogi aur lambi chalegi.
+                      Throttles high C-rate fast charging to minimize cell overheating and lithium plating.
                     </p>
                   </div>
                 </div>
@@ -305,10 +305,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white font-display">
-                      3. Gaadi Time Par Ready Rakho (Availability Buffer)
+                      3. Shift Readiness Guarantee Weight (w_avail)
                     </h4>
                     <p className="text-xs text-slate-400">
-                      Isko badhane se gaadi delivery shift shuru hone se 1-2 ghante pehle hi 100% charged mil jayegi.
+                      Strictly enforces 100% State of Charge completion before scheduled vehicle departure.
                     </p>
                   </div>
                 </div>
@@ -326,20 +326,6 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
                 className="w-full accent-rose-500 cursor-pointer h-2 bg-slate-800 rounded-lg mt-2"
               />
             </div>
-          </div>
-        </div>
-
-        {/* Live Mathematical Solver Status Footer */}
-        <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-            <span className="text-white font-semibold">MILP Mathematical Solver: ACTIVE</span>
-            <span>·</span>
-            <span>0ms Instant Client-Side Recomputation</span>
-          </div>
-
-          <div className="text-red-400 font-semibold">
-            {isLoading ? 'Solving Mathematical Optimum...' : '✓ Optimal Global Schedule Found'}
           </div>
         </div>
       </div>

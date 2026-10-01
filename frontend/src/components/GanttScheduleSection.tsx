@@ -84,24 +84,23 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3 shadow-lg shadow-red-500/10 backdrop-blur-md">
           <Calendar className="w-3.5 h-3.5" />
-          <span>24-HOUR CHARGING PLAN · KAB AUR KAISE CHARGE HOGA</span>
+          <span>24-HOUR CHARGING PLAN · MATHEMATICAL ARBITRAGE SCHEDULE</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Smart Fleet Charging Schedule
         </h2>
         <p className="text-slate-300 max-w-2xl mx-auto mt-3 text-sm sm:text-base leading-relaxed">
-          AI ne har gaadi ka 24-ghante ka aasan plan banaya hai: <strong className="text-white">Raat ki sasti bijli (&#8377;5/unit)</strong> use hogi,
-          aur delivery shift shuru hone se pehle har gaadi 100% full milegi!
+          Autonomous mathematical charging plan: prioritizing <strong className="text-white">night off-peak tariffs (&#8377;5.00/kWh)</strong> and clean solar energy, guaranteeing 100% departure readiness before scheduled shifts.
         </p>
       </div>
 
-      {/* 3 GOLDEN PRINCIPLE CARDS (Normal banda turant samajh jaye) */}
+      {/* 3 SUMMARY CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="glass-panel p-4 rounded-2xl border border-red-500/30 text-left hover:border-red-500/50 transition-all bg-gradient-to-b from-red-950/20 to-transparent">
           <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
             <span className="flex items-center gap-1.5 text-red-400 font-bold">
               <Moon className="w-3.5 h-3.5 text-red-500" />
-              1. RAAT KI SASTI BIJLI (NIGHT)
+              1. NIGHT OFF-PEAK ARBITRAGE
             </span>
             <span className="font-bold text-white bg-red-500/20 px-2 py-0.5 rounded border border-red-500/30">&#8377;5.00 / kWh</span>
           </div>
@@ -109,7 +108,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
             {nightPct}% <span className="text-xs font-normal text-slate-400 font-sans">fleet charging</span>
           </div>
           <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-            AI ne gaadiyon ko raat (11 PM - 6 AM) me schedule kiya hai jab bijli sabse sasti aur thandi hoti hai.
+            Primary charging window (11:00 PM – 06:00 AM) capturing lowest grid tariffs with gentle, cool thermal profiles.
           </p>
         </div>
 
@@ -117,7 +116,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
           <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
             <span className="flex items-center gap-1.5 text-amber-400 font-bold">
               <Sun className="w-3.5 h-3.5 text-amber-500" />
-              2. CLEAN SOLAR ENERGY
+              2. CLEAN SOLAR GENERATION
             </span>
             <span className="font-bold text-white bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30">&#8377;6.00 / kWh</span>
           </div>
@@ -125,7 +124,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
             {solarPct}% <span className="text-xs font-normal text-slate-400 font-sans">solar charging</span>
           </div>
           <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-            Dopahar (10 AM - 3 PM) me rooftop solar canopy se clean charging hoti hai, zero carbon ke saath.
+            Midday rooftop solar canopy utilization (10:00 AM – 03:00 PM) for sustainable, zero-emission charging.
           </p>
         </div>
 
@@ -133,15 +132,15 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
           <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
             <span className="flex items-center gap-1.5 text-rose-400 font-bold">
               <Flame className="w-3.5 h-3.5 text-rose-500" />
-              3. MEHENGI BIJLI (PEAK AVOIDED)
+              3. EXPENSIVE PEAK AVOIDED
             </span>
             <span className="font-bold text-rose-300 bg-rose-500/20 px-2 py-0.5 rounded border border-rose-500/30">&#8377;11.00 / kWh</span>
           </div>
           <div className="text-3xl font-mono font-black text-emerald-400 mt-1">
-            {peakPct}% <span className="text-xs font-normal text-slate-400 font-sans">avoided 100%!</span>
+            {peakPct}% <span className="text-xs font-normal text-slate-400 font-sans">100% avoided!</span>
           </div>
           <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-            Sham (5 PM - 9 PM) ke dauran charging band rakhi gayi hai, jisse roz &#8377;1,222+ ki bachat hoti hai.
+            Zero charging scheduled during high evening grid stress (05:00 PM – 09:00 PM), eliminating surge penalties.
           </p>
         </div>
       </div>
@@ -158,7 +157,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            📋 Aasan Vehicle Cards (Recommended)
+            📋 Simple Vehicle Cards (Recommended)
           </button>
           <button
             onClick={() => setViewMode('matrix')}
@@ -249,23 +248,23 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
 
                     <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold flex items-center gap-1 shadow-sm">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      100% Ready
+                      100% Ready On-Time
                     </span>
                   </div>
 
-                  {/* 3 Human-Friendly Plain Language Badges */}
+                  {/* 3 Human-Friendly Badges */}
                   <div className="space-y-2.5 my-4">
                     {/* Charging Window */}
                     <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ff1e42]" />
-                        <span className="text-slate-300 font-medium">Kab Charge Hogi:</span>
+                        <span className="text-slate-300 font-medium">Charging Window:</span>
                       </div>
                       <div className="text-right font-mono font-bold text-white">
                         {chargingHours.length > 0 ? (
                           <span>
-                            {startChargeHour} - {endChargeHour}{' '}
-                            <span className="text-red-400 text-[11px]">({chargingHours.length}h @ &#8377;5 Night)</span>
+                            {startChargeHour} – {endChargeHour}{' '}
+                            <span className="text-red-400 text-[11px]">({chargingHours.length}h @ &#8377;5 Night Off-Peak)</span>
                           </span>
                         ) : (
                           <span className="text-slate-400">Battery Already Sufficient</span>
@@ -277,10 +276,10 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                     <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <Truck className="w-3.5 h-3.5 text-amber-400" />
-                        <span className="text-slate-300 font-medium">Delivery Shift Timing:</span>
+                        <span className="text-slate-300 font-medium">Delivery Shift Window:</span>
                       </div>
                       <div className="text-right font-mono font-bold text-amber-300">
-                        {shift ? `${shift.start_hour.toString().padStart(2, '0')}:00 - ${shift.end_hour.toString().padStart(2, '0')}:00` : 'Standby / Flexible'}
+                        {shift ? `${shift.start_hour.toString().padStart(2, '0')}:00 – ${shift.end_hour.toString().padStart(2, '0')}:00` : 'Standby / Flexible'}
                       </div>
                     </div>
 
@@ -288,16 +287,16 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                     <div className="p-3 rounded-xl bg-red-950/25 border border-red-500/25 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <TrendingDown className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-slate-300 font-medium">Is Gaadi Ka Kharcha:</span>
+                        <span className="text-slate-300 font-medium">Electricity Cost & Savings:</span>
                       </div>
                       <div className="text-right font-mono font-bold">
                         <span className="text-white">&#8377;{totalCostForCar}</span>{' '}
-                        <span className="text-emerald-400 font-semibold">(Bachat: &#8377;{savedOnThisCar})</span>
+                        <span className="text-emerald-400 font-semibold">(Saved: &#8377;{savedOnThisCar})</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* VISUAL 24-HOUR MINI-TIMELINE BAR (Subah se Raat tak ka timeline graph) */}
+                  {/* VISUAL 24-HOUR MINI-TIMELINE BAR */}
                   <div className="my-4 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
                     <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
                       <span>24-Hour Timeline:</span>
@@ -328,7 +327,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                           title = `${h}:00 - ⚡ Smart Charging (${primaryStation})`;
                         } else if (isDuty) {
                           colorClass = 'bg-amber-500 shadow-[0_0_4px_#ff6b2b]';
-                          title = `${h}:00 - 🚚 On Delivery Shift`;
+                          title = `${h}:00 - 🚚 Active Shift Delivery`;
                         }
 
                         return (

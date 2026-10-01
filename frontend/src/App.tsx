@@ -302,7 +302,12 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#070305] text-slate-100 selection:bg-red-600 selection:text-white">
+    <div className="relative min-h-screen bg-[#050203] text-slate-100 selection:bg-red-600 selection:text-white">
+      {/* Minimal Red & Black Ambient Cyber Scanline Overlay */}
+      <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/35 to-transparent shadow-[0_0_12px_#ff1e42] animate-laser-scan opacity-30" />
+      </div>
+
       {/* Loading Screen */}
       {isLoadingScreen && (
         <LoadingScreen onComplete={() => setIsLoadingScreen(false)} />

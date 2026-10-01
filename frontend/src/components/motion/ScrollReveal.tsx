@@ -20,7 +20,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     return <div className={className}>{children}</div>;
   }
 
-  const offset = 35;
+  // Minimal subtle offset for lightning-fast responsiveness
+  const offset = 12;
   const initialVariants = {
     up: { opacity: 0, y: offset },
     down: { opacity: 0, y: -offset },
@@ -33,11 +34,11 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     <motion.div
       initial={initialVariants[direction]}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: true, margin: '-20px' }}
       transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        duration: 0.25, // Snappy fast response
+        delay: Math.min(delay, 0.08),
+        ease: 'easeOut',
       }}
       className={className}
     >

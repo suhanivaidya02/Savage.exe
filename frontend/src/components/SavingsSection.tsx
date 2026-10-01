@@ -89,7 +89,7 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
               <h3 className="text-base font-bold text-white font-display">
                 Charging Cost Benchmark (INR / Day)
               </h3>
-              <span className="text-xs font-mono text-slate-400">20 Vehicles Total</span>
+              <span className="text-xs font-mono text-slate-400">10 Commercial EVs</span>
             </div>
 
             <div className="h-56 w-full">

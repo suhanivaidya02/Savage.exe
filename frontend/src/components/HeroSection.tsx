@@ -61,7 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       name: 'S1 Depot Main (Night Off-Peak)',
       power: '7.2 kW',
       rate: '₹5.00/kWh',
-      type: 'Raat Ki Sasti Bijli (23:00 - 06:00)',
+      type: 'Night Off-Peak (23:00 - 06:00)',
       cRate: '0.22C',
       health: 'Safe & Gentle (0% Battery Wear)',
       color: '#ff1e42',
@@ -69,13 +69,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       sessionCost: 36,
       sessionEnergy: 7.2,
       savingsVsFast: 206,
-      thermalImpact: 'Zero Degradation (Battery bilkul thandi rahegi)',
+      thermalImpact: 'Zero Battery Degradation (Pack stays cool)',
     },
     S2: {
       name: 'S2 Solar Canopy (Clean Solar)',
       power: '7.2 kW',
       rate: '₹6.00/kWh',
-      type: 'Dopahar Solar Dhoop (10:00 - 15:00)',
+      type: 'Midday Solar (10:00 - 15:00)',
       cRate: '0.22C',
       health: '100% Clean Green Energy',
       color: '#ff6b2b',
@@ -89,15 +89,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       name: 'S3 DC Fast (Evening Grid Peak)',
       power: '22.0 kW',
       rate: '₹11.00/kWh',
-      type: 'Sham Ka Mehenga Time (17:00 - 21:00)',
+      type: 'Evening Grid Peak (17:00 - 21:00)',
       cRate: '0.85C',
-      health: 'Mehengi Bijli + Battery Heat',
+      health: 'High Thermal Stress (+12% Degradation)',
       color: '#ff0033',
       badgeColor: 'text-rose-400 bg-rose-950/60 border-rose-500/40',
       sessionCost: 242,
       sessionEnergy: 22.0,
       savingsVsFast: 0,
-      thermalImpact: 'High Thermal Stress (+12% Degradation)',
+      thermalImpact: 'Severe Cell Wear & Accelerated Aging',
     },
   };
 
@@ -112,16 +112,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-16 z-20 max-w-7xl mx-auto text-center">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Minimal Red & Black Ambient Background Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none animate-minimal-pulse" />
+      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-red-950/30 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top Tagline Badge */}
-      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 text-red-400 text-xs font-mono mb-4 shadow-lg shadow-red-500/15 backdrop-blur-md">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0d0407]/90 border border-red-500/40 text-red-400 text-xs font-mono mb-4 shadow-lg shadow-red-500/15 backdrop-blur-md">
         <Cpu className="w-3.5 h-3.5 text-red-400 animate-pulse" />
-        <span className="font-semibold tracking-wider uppercase">India ka Pehla Smart EV Fleet Charging System</span>
+        <span className="font-semibold tracking-wider uppercase">Autonomous Commercial EV Fleet Energy Engine</span>
         <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-        <span className="text-slate-400 hidden sm:inline">Delhi NCR Power Grid Arbitrage</span>
+        <span className="text-slate-400 hidden sm:inline">Delhi NCR Grid Arbitrage</span>
       </div>
 
       {/* Hero Headline */}
@@ -133,53 +133,53 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         Charge Smart. Run Longer. Spend Less.
       </p>
 
-      {/* Plain Language Subtitle (Koi bhi normal banda turant samajh jaye) */}
-      <p className="text-sm sm:text-base text-slate-200 max-w-3xl mt-3 leading-relaxed font-normal">
-        Jab gaadiyan bina planning ke plug hoti hain toh bijli ka bill bohot mehenga aata hai. 
-        <strong className="text-white"> Virexa AI har gaadi ko tab charge karta hai jab bijli sabse sasti ho </strong> 
-        (Raat me &#8377;5 ya Solar me &#8377;6) — jisse <span className="text-red-400 font-bold font-mono">54% bijli ka kharcha bachta hai</span> aur gaadi shift shuru hone se pehle 100% ready milti hai!
+      {/* Clear English Subtitle */}
+      <p className="text-sm sm:text-base text-slate-300 max-w-3xl mt-3 leading-relaxed font-normal">
+        Unmanaged charging triggers crushing peak tariffs and rapid battery degradation. 
+        <strong className="text-white"> Virexa AI schedules every vehicle during lowest-cost hours </strong> 
+        (Night off-peak at &#8377;5/kWh and Midday solar at &#8377;6/kWh) — slashing fleet electricity costs by <span className="text-red-400 font-bold font-mono">54%</span> while ensuring 100% on-time delivery departure!
       </p>
 
-      {/* HOW IT WORKS IN 3 SIMPLE STEPS (Aasan 3-Step Guide Banner) */}
+      {/* HOW IT WORKS IN 3 SIMPLE STEPS */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl w-full my-6 text-left">
-        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-slate-950/70 hover:border-red-500/40 transition-all flex items-start gap-3">
+        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-[#0a0306]/80 hover:border-red-500/40 transition-all flex items-start gap-3">
           <div className="w-8 h-8 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 flex items-center justify-center font-mono font-bold text-sm shrink-0">
             1
           </div>
           <div>
             <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1">
-              <span>Gaadi Plug Karo</span>
+              <span>Plug In & Park</span>
             </div>
             <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
-              Driver shift khatam hone par gaadi ko depot ya charging station par plug karke chhod dete hain.
+              Drivers plug into depot or solar charging bays upon completing their daily delivery shifts.
             </p>
           </div>
         </div>
 
-        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-slate-950/70 hover:border-amber-500/40 transition-all flex items-start gap-3">
+        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-[#0a0306]/80 hover:border-amber-500/40 transition-all flex items-start gap-3">
           <div className="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center font-mono font-bold text-sm shrink-0">
             2
           </div>
           <div>
             <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1">
-              <span>AI Sasta Time Chunta Hai</span>
+              <span>AI Arbitrage Scheduling</span>
             </div>
             <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
-              Virexa AI raat ki sasti bijli (&#8377;5) aur solar dhoop (&#8377;6) me automatic charging chalu karta hai.
+              Virexa schedules charging during cheapest night (&#8377;5/kWh) and clean solar (&#8377;6/kWh) windows.
             </p>
           </div>
         </div>
 
-        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-slate-950/70 hover:border-emerald-500/40 transition-all flex items-start gap-3">
+        <div className="glass-panel p-3.5 rounded-2xl border border-slate-800 bg-[#0a0306]/80 hover:border-emerald-500/40 transition-all flex items-start gap-3">
           <div className="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm shrink-0">
             3
           </div>
           <div>
             <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1">
-              <span>Subah 100% Ready</span>
+              <span>Guaranteed Departure</span>
             </div>
             <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">
-              Delivery shift shuru hone se pehle gaadi full charge milti hai, 54% kam kharche ke saath!
+              Every EV reaches 100% target SoC before shift departure, with zero peak tariff penalties!
             </p>
           </div>
         </div>
@@ -192,7 +192,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white font-mono text-xs font-bold shadow-md shadow-red-600/30 hover:brightness-110 active:scale-95 transition-all"
         >
           <Sliders className="w-3.5 h-3.5" />
-          <span>🎛️ Live Sliders Se Bill Badlo</span>
+          <span>Tune Live Optimizer Sliders</span>
         </button>
 
         {onGoToSchedule && (
@@ -201,7 +201,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-red-400 text-slate-200 hover:text-white font-mono text-xs font-semibold backdrop-blur-md transition-all"
           >
             <Calendar className="w-3.5 h-3.5 text-red-400" />
-            <span>📋 Gaadiyon Ka Schedule Dekhein</span>
+            <span>View 24-Hour Fleet Schedule</span>
           </button>
         )}
 
@@ -211,7 +211,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-emerald-400 text-slate-200 hover:text-white font-mono text-xs font-semibold backdrop-blur-md transition-all"
           >
             <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
-            <span>💰 Kitna Paisa Bacha?</span>
+            <span>Financial ROI & Savings</span>
           </button>
         )}
 
@@ -221,7 +221,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-red-500/30 text-red-300 hover:text-white hover:border-red-400 font-mono text-xs font-semibold backdrop-blur-md transition-all"
           >
             <HelpCircle className="w-3.5 h-3.5 text-red-400" />
-            <span>📖 Poori Website Kaise Kaam Karti Hai?</span>
+            <span>System Architecture Guide</span>
           </button>
         )}
       </div>
@@ -237,7 +237,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-red-400" />
             <span className="text-xs font-mono uppercase tracking-wider text-slate-200 font-semibold">
-              Live 3D EV Rig · Test Stations (Neeche Buttons Click Karke Dekhein)
+              Live 3D EV Rig · Test Station Profiles
             </span>
           </div>
 
@@ -250,7 +250,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              🌙 S1 Depot (Raat &#8377;5)
+              🌙 S1 Depot (Night &#8377;5)
             </button>
             <button
               onClick={() => handleSelect('S2')}
@@ -260,7 +260,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              ☀️ S2 Solar (Dhoop &#8377;6)
+              ☀️ S2 Solar (Clean &#8377;6)
             </button>
             <button
               onClick={() => handleSelect('S3')}
@@ -270,7 +270,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              🔥 S3 DC Fast (Sham &#8377;11)
+              🔥 S3 DC Fast (Peak &#8377;11)
             </button>
           </div>
         </div>
@@ -334,7 +334,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           >
             <div className="glass-panel p-3.5 rounded-2xl border border-red-500/20 text-left">
               <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
-                <span>1-HOUR CHARGING KHARCHA</span>
+                <span>1-HOUR CHARGING SESSION</span>
                 <span className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-bold border ${currentSt.badgeColor}`}>
                   {currentSt.rate}
                 </span>
@@ -356,7 +356,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
                 {currentSt.savingsVsFast > 0 && (
                   <div className="flex justify-between text-emerald-400 font-bold pt-1 border-t border-slate-800/80">
-                    <span>1 Hr Bachat:</span>
+                    <span>1-Hr Savings:</span>
                     <span>+&#8377;{currentSt.savingsVsFast.toFixed(0)} saved!</span>
                   </div>
                 )}
@@ -391,7 +391,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   &#8377;{kpis.total_optimized_cost_inr.toLocaleString()}
                 </div>
                 <div className="text-xs text-red-400 font-mono mt-1 font-semibold">
-                  Saved &#8377;{kpis.savings_inr.toLocaleString()} / day ({kpis.savings_percent}% bachat)
+                  Saved &#8377;{kpis.savings_inr.toLocaleString()} / day ({kpis.savings_percent}% reduction)
                 </div>
               </div>
 
@@ -404,7 +404,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   {kpis.ready_on_time_pct}%
                 </div>
                 <div className="text-xs text-slate-300 font-mono mt-1">
-                  Shift se pehle 100% full gaadi
+                  100% Guaranteed shift departure
                 </div>
               </div>
 
@@ -417,7 +417,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   10 Commercial EVs
                 </div>
                 <div className="text-xs text-slate-300 font-mono mt-1">
-                  Delhi NCR ToD Grid Arbitrage
+                  Delhi NCR Time-of-Day Grid Arbitrage
                 </div>
               </div>
             </div>
@@ -431,7 +431,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           onClick={onExploreClick}
           className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white font-extrabold font-display tracking-wider shadow-[0_0_30px_rgba(255,30,66,0.5)] active:scale-95 hover:brightness-110 transition-all"
         >
-          <span>Neeche Scroll Karke Poori Fleet & Schedule Dekhein</span>
+          <span>Explore Fleet Telemetry & Optimization</span>
           <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
         </button>
       </div>

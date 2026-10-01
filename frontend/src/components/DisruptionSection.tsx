@@ -34,15 +34,15 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
   return (
     <section id="disrupt" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono mb-3 shadow-lg shadow-rose-500/10">
           <AlertOctagon className="w-3.5 h-3.5" />
           <span>WHAT-IF SCENARIOS & ADAPTIVE REPLANNING</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Simulate Real-World Disruptions
         </h2>
-        <p className="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base">
-          Trigger sudden operational anomalies. Virexa recalculates delta schedules in &lt;1 second,
+        <p className="text-slate-300 max-w-xl mx-auto mt-3 text-sm sm:text-base">
+          Trigger operational anomalies. Virexa recalculates delta schedules in &lt;1 second,
           presenting an impact diff for human verification.
         </p>
       </div>
@@ -52,76 +52,76 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
         <button
           onClick={() => handleDisrupt('charger_down', { station_id: 'S2' })}
           disabled={isLoading}
-          className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
+          className={`glass-panel p-5 rounded-2xl border text-left transition-all hover:scale-[1.02] ${
             activeDisruption === 'charger_down'
-              ? 'border-rose-500 bg-rose-950/30 shadow-[0_0_20px_rgba(255,51,102,0.3)]'
+              ? 'border-rose-500 bg-rose-950/40 shadow-[0_0_20px_rgba(255,30,66,0.3)]'
               : 'border-slate-800 hover:border-rose-500/40'
           }`}
         >
           <div className="w-9 h-9 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center mb-3">
             <ZapOff className="w-5 h-5" />
           </div>
-          <div className="text-[10px] font-mono uppercase text-rose-400 font-bold mb-0.5">EMERGENCY 1</div>
-          <h3 className="text-sm font-bold text-white mb-1">Solar Hub S2 Kharab Ho Gaya</h3>
+          <div className="text-[10px] font-mono uppercase text-rose-400 font-bold mb-0.5">SCENARIO 1</div>
+          <h3 className="text-sm font-bold text-white mb-1">Solar Hub S2 Offline</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            S2 charger me fault aaya. Dekhiye AI kaise bina delay ke gaadiyon ko S1 par redirect karta hai.
+            S2 charger fault detected. AI redirects solar-dependent vehicles to Depot S1 without operational delay.
           </p>
         </button>
 
         <button
           onClick={() => handleDisrupt('tariff_spike', { spike_factor: 1.8, hours: [14, 15, 16] })}
           disabled={isLoading}
-          className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
+          className={`glass-panel p-5 rounded-2xl border text-left transition-all hover:scale-[1.02] ${
             activeDisruption === 'tariff_spike'
-              ? 'border-amber-500 bg-amber-950/30 shadow-[0_0_20px_rgba(255,183,3,0.3)]'
+              ? 'border-amber-500 bg-amber-950/40 shadow-[0_0_20px_rgba(255,107,43,0.3)]'
               : 'border-slate-800 hover:border-amber-500/40'
           }`}
         >
           <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
             <TrendingUp className="w-5 h-5" />
           </div>
-          <div className="text-[10px] font-mono uppercase text-amber-400 font-bold mb-0.5">EMERGENCY 2</div>
-          <h3 className="text-sm font-bold text-white mb-1">Bijli Ke Daam Badh Gaye (Surge)</h3>
+          <div className="text-[10px] font-mono uppercase text-amber-400 font-bold mb-0.5">SCENARIO 2</div>
+          <h3 className="text-sm font-bold text-white mb-1">Grid Tariff Spike (1.8x Surge)</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Grid ne achanak daam 1.8x badha diye. AI turant daytime charging rok kar raat me bhejta hai.
+            Grid operator issued emergency peak surcharge. AI immediately halts daytime charging and shifts to night.
           </p>
         </button>
 
         <button
           onClick={() => handleDisrupt('charger_down', { station_id: 'S1' })}
           disabled={isLoading}
-          className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
+          className={`glass-panel p-5 rounded-2xl border text-left transition-all hover:scale-[1.02] ${
             activeDisruption === 'charger_down_s1'
-              ? 'border-cyan-500 bg-cyan-950/30 shadow-[0_0_20px_rgba(0,229,255,0.3)]'
+              ? 'border-cyan-500 bg-cyan-950/40 shadow-[0_0_20px_rgba(0,229,255,0.3)]'
               : 'border-slate-800 hover:border-cyan-500/40'
           }`}
         >
           <div className="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
             <AlertOctagon className="w-5 h-5" />
           </div>
-          <div className="text-[10px] font-mono uppercase text-cyan-400 font-bold mb-0.5">EMERGENCY 3</div>
+          <div className="text-[10px] font-mono uppercase text-cyan-400 font-bold mb-0.5">SCENARIO 3</div>
           <h3 className="text-sm font-bold text-white mb-1">Depot S1 Maintenance Outage</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Main depot transformer band hua. AI turant S3 fast charger se emergency backup slots banata hai.
+            Main depot transformer tripped. AI reallocates critical shifts to DC fast chargers with thermal throttling.
           </p>
         </button>
 
         <button
           onClick={() => handleDisrupt('longer_route', { vehicle_id: 'V07', extra_km: 40 })}
           disabled={isLoading}
-          className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
+          className={`glass-panel p-5 rounded-2xl border text-left transition-all hover:scale-[1.02] ${
             activeDisruption === 'longer_route'
-              ? 'border-emerald-500 bg-emerald-950/30 shadow-[0_0_20px_rgba(57,255,136,0.3)]'
+              ? 'border-emerald-500 bg-emerald-950/40 shadow-[0_0_20px_rgba(57,255,136,0.3)]'
               : 'border-slate-800 hover:border-emerald-500/40'
           }`}
         >
           <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
             <Navigation className="w-5 h-5" />
           </div>
-          <div className="text-[10px] font-mono uppercase text-emerald-400 font-bold mb-0.5">EMERGENCY 4</div>
-          <h3 className="text-sm font-bold text-white mb-1">Gaadi Traffic Me Phas Gayi (+40km)</h3>
+          <div className="text-[10px] font-mono uppercase text-emerald-400 font-bold mb-0.5">SCENARIO 4</div>
+          <h3 className="text-sm font-bold text-white mb-1">Vehicle Route Extended (+40km)</h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Van V07 ka route lamba ho gaya aur battery low ho gayi. AI ne next shift ke liye instant top-up diya.
+            Van V07 delayed in traffic with low battery. AI injects emergency top-up window before next shift.
           </p>
         </button>
       </div>
@@ -170,7 +170,7 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
               <div className="flex items-center gap-2 mt-1">
                 <span
                   className={`text-2xl font-mono font-bold ${
-                    pendingDiff.cost_delta_inr > 0 ? 'text-rose-400' : 'text-neon-green'
+                    pendingDiff.cost_delta_inr > 0 ? 'text-rose-400' : 'text-emerald-400'
                   }`}
                 >
                   {pendingDiff.cost_delta_inr > 0 ? `+₹${pendingDiff.cost_delta_inr}` : `₹${pendingDiff.cost_delta_inr}`}
@@ -240,7 +240,7 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
                         <td className="py-2.5 px-3 text-slate-400">
                           {diff.old_stations.join(', ') || 'None'}
                         </td>
-                        <td className="py-2.5 px-3 text-neon-green font-semibold">
+                        <td className="py-2.5 px-3 text-emerald-400 font-semibold">
                           {diff.new_stations.join(', ') || 'Offline'}
                         </td>
                         <td className="py-2.5 px-3 text-white">

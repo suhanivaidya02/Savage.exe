@@ -24,11 +24,11 @@ export function useLenisScrollTrigger({ reduceMotion }: UseLenisScrollTriggerPro
       return;
     }
 
-    // Initialize Lenis smooth scroll
+    // Initialize Lenis smooth scroll - fast & lightweight
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
 

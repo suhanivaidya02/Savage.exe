@@ -48,10 +48,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
             <span>FLEET TELEMETRY & INVENTORY</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
-            Meet the 20-EV Fleet
+            Meet the {totalVehicles}-EV Fleet
           </h2>
           <p className="text-slate-400 mt-2 text-sm sm:text-base max-w-xl">
-            Simulated multimodal Indian commercial fleet: 8 E-Rickshaws, 7 Urban Delivery Vans, and 5 Tech-Park Campus Shuttles.
+            Multimodal commercial EV fleet: E-Rickshaws, Urban Delivery Vans, and Campus Shuttles operating across Delhi NCR depots.
           </p>
         </div>
 
