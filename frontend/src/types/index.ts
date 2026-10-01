@@ -39,6 +39,13 @@ export interface TariffSlot {
   provenance: string;
 }
 
+export interface TariffRates {
+  night: number;
+  solar: number;
+  peak: number;
+  normal: number;
+}
+
 export interface ChargingEvent {
   slot: number;
   hour: number;

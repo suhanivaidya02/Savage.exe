@@ -2,8 +2,7 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
 export const CitySkyline: React.FC = () => {
-  // Generate procedural Delhi NCR Tech Hub skyscraper instances
-  const { buildingData, windowCount } = useMemo(() => {
+  const { buildingData } = useMemo(() => {
     const buildings: { position: [number, number, number]; scale: [number, number, number] }[] = [];
     const seedRandom = (seed: number) => {
       const x = Math.sin(seed++) * 10000;
@@ -37,31 +36,31 @@ export const CitySkyline: React.FC = () => {
       }
     }
 
-    return { buildingData: buildings, windowCount: buildings.length };
+    return { buildingData: buildings };
   }, []);
 
   return (
     <group>
       {buildingData.map((b, i) => (
         <group key={i} position={b.position}>
-          {/* Main Dark Tower Shell */}
+          {/* Main Dark Obsidian Shell */}
           <mesh scale={b.scale} castShadow receiveShadow>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-              color="#070d18"
+              color="#0d0407"
               metalness={0.8}
               roughness={0.4}
             />
           </mesh>
 
-          {/* Roof Edge Glowing Cyan Beacon */}
+          {/* Roof Edge Glowing Hot Red Beacon */}
           {i % 3 === 0 && (
             <mesh position={[0, b.scale[1] / 2 + 0.1, 0]}>
               <boxGeometry args={[b.scale[0] * 0.95, 0.12, b.scale[2] * 0.95]} />
               <meshStandardMaterial
-                color="#00e5ff"
-                emissive="#00e5ff"
-                emissiveIntensity={1.8}
+                color="#ff1e42"
+                emissive="#ff1e42"
+                emissiveIntensity={2.5}
               />
             </mesh>
           )}
@@ -71,9 +70,9 @@ export const CitySkyline: React.FC = () => {
             <mesh position={[0, 0, b.scale[2] / 2 + 0.02]}>
               <planeGeometry args={[0.25, b.scale[1] * 0.8]} />
               <meshStandardMaterial
-                color={i % 4 === 0 ? '#39ff88' : '#00e5ff'}
-                emissive={i % 4 === 0 ? '#39ff88' : '#00e5ff'}
-                emissiveIntensity={2.0}
+                color={i % 4 === 0 ? '#ff6b2b' : '#ff1e42'}
+                emissive={i % 4 === 0 ? '#ff6b2b' : '#ff1e42'}
+                emissiveIntensity={2.2}
               />
             </mesh>
           )}
@@ -84,17 +83,17 @@ export const CitySkyline: React.FC = () => {
       <group position={[-14, 10, -22]}>
         <mesh>
           <cylinderGeometry args={[0.1, 0.4, 18, 8]} />
-          <meshStandardMaterial color="#00e5ff" emissive="#00e5ff" emissiveIntensity={3.0} />
+          <meshStandardMaterial color="#ff1e42" emissive="#ff1e42" emissiveIntensity={3.5} />
         </mesh>
-        <pointLight distance={12} intensity={4} color="#00e5ff" />
+        <pointLight distance={12} intensity={4} color="#ff1e42" />
       </group>
 
       <group position={[14, 10, -22]}>
         <mesh>
           <cylinderGeometry args={[0.1, 0.4, 18, 8]} />
-          <meshStandardMaterial color="#39ff88" emissive="#39ff88" emissiveIntensity={3.0} />
+          <meshStandardMaterial color="#ff6b2b" emissive="#ff6b2b" emissiveIntensity={3.5} />
         </mesh>
-        <pointLight distance={12} intensity={4} color="#39ff88" />
+        <pointLight distance={12} intensity={4} color="#ff6b2b" />
       </group>
     </group>
   );

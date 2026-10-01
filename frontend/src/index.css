@@ -3,18 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #05080f;
-  --color-cyan: #00e5ff;
-  --color-neon: #39ff88;
-  --color-amber: #ffb703;
+  --color-bg: #070305;
+  --color-red: #ff1e42;
+  --color-crimson: #e11d48;
+  --color-amber: #ff6b2b;
   --color-rose: #ff3366;
+  --color-neon: #39ff88;
 }
 
 body {
-  background-color: #05080f;
+  background-color: #070305;
   color: #f1f5f9;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  selection-background-color: #ff1e42;
+}
+
+::selection {
+  background: #ff1e42;
+  color: #ffffff;
 }
 
 /* Subtle cinematic noise overlay */
@@ -32,83 +39,79 @@ h1, h2, h3, .font-display {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
-/* Glassmorphism primitives */
+/* Glassmorphism primitives with Hot Red / Obsidian tone */
 .glass-panel {
-  background: rgba(10, 16, 31, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 229, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(18, 7, 12, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 30, 66, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel-subtle {
-  background: rgba(13, 22, 41, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(22, 9, 14, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-pill {
-  background: rgba(10, 20, 38, 0.85);
+  background: rgba(20, 8, 14, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 229, 255, 0.25);
+  border: 1px solid rgba(255, 30, 66, 0.3);
 }
 
-/* Glow effects */
-.glow-cyan {
-  box-shadow: 0 0 25px -4px rgba(0, 229, 255, 0.45);
+/* Hot Red Glow effects */
+.glow-red {
+  box-shadow: 0 0 30px -4px rgba(255, 30, 66, 0.55);
 }
 
-.glow-neon {
-  box-shadow: 0 0 25px -4px rgba(57, 255, 136, 0.45);
+.glow-crimson {
+  box-shadow: 0 0 30px -4px rgba(225, 29, 72, 0.55);
 }
 
 .glow-amber {
-  box-shadow: 0 0 25px -4px rgba(255, 183, 3, 0.45);
+  box-shadow: 0 0 25px -4px rgba(255, 107, 43, 0.45);
 }
 
-.glow-rose {
-  box-shadow: 0 0 25px -4px rgba(255, 51, 102, 0.5);
+.text-glow-red {
+  text-shadow: 0 0 18px rgba(255, 30, 66, 0.75);
 }
 
-.text-glow-cyan {
-  text-shadow: 0 0 16px rgba(0, 229, 255, 0.65);
+.text-glow-amber {
+  text-shadow: 0 0 16px rgba(255, 107, 43, 0.65);
 }
 
-.text-glow-neon {
-  text-shadow: 0 0 16px rgba(57, 255, 136, 0.65);
-}
-
-/* Grid overlay background */
+/* Hot Red Grid overlay background */
 .bg-cyber-grid {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 30, 66, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 30, 66, 0.06) 1px, transparent 1px);
 }
 
 .bg-radial-gradient {
-  background: radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.12) 0%, rgba(5, 8, 15, 0) 70%);
+  background: radial-gradient(circle at 50% 30%, rgba(255, 30, 66, 0.15) 0%, rgba(7, 3, 5, 0) 70%);
 }
 
-/* Custom sleek scrollbar */
+/* Custom sleek hot red scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #05080f;
+  background: #070305;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 229, 255, 0.3);
+  background: rgba(255, 30, 66, 0.4);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 229, 255, 0.7);
+  background: rgba(255, 30, 66, 0.8);
 }
 
 @keyframes spinSlow {

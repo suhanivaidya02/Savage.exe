@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Truck, Battery, Search, Heart, ChevronLeft, ChevronRight, Zap, Shield, Activity } from 'lucide-react';
+import { Truck, Battery, Search, Heart, ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { Vehicle, Shift } from '../types';
 
 interface FleetSectionProps {
@@ -15,7 +15,6 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
 
   const shiftMap = new Map<string, Shift>(shifts.map((s) => [s.vehicle_id, s]));
 
-  // Filter vehicles
   const filteredVehicles = vehicles.filter((v) => {
     const matchesType = filterType === 'all' || v.type === filterType;
     const matchesSearch =
@@ -25,7 +24,6 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
     return matchesType && matchesSearch;
   });
 
-  // Pagination calculation
   const totalPages = Math.ceil(filteredVehicles.length / ITEMS_PER_PAGE) || 1;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentVehicles = filteredVehicles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -35,7 +33,6 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
     setCurrentPage(1);
   };
 
-  // Fleet overview statistics
   const totalVehicles = vehicles.length;
   const avgSoc = totalVehicles > 0 ? Math.round((vehicles.reduce((acc, v) => acc + v.current_soc, 0) / totalVehicles) * 100) : 0;
   const avgHealth = totalVehicles > 0 ? Math.round((vehicles.reduce((acc, v) => acc + v.battery_health, 0) / totalVehicles) * 100) : 0;
@@ -46,7 +43,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3">
             <Truck className="w-3.5 h-3.5" />
             <span>FLEET TELEMETRY & INVENTORY</span>
           </div>
@@ -66,15 +63,15 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
           </div>
           <div className="glass-panel p-2.5 rounded-xl border border-slate-800 text-left">
             <div className="text-slate-400 text-[10px]">AVG SOC</div>
-            <div className="text-base font-bold text-cyan-300">{avgSoc}%</div>
+            <div className="text-base font-bold text-red-400">{avgSoc}%</div>
           </div>
           <div className="glass-panel p-2.5 rounded-xl border border-slate-800 text-left">
             <div className="text-slate-400 text-[10px]">AVG SOH</div>
-            <div className="text-base font-bold text-emerald-400">{avgHealth}%</div>
+            <div className="text-base font-bold text-amber-400">{avgHealth}%</div>
           </div>
           <div className="glass-panel p-2.5 rounded-xl border border-slate-800 text-left">
             <div className="text-slate-400 text-[10px]">PACK TOTAL</div>
-            <div className="text-base font-bold text-amber-300">{totalKwh} kWh</div>
+            <div className="text-base font-bold text-rose-300">{totalKwh} kWh</div>
           </div>
         </div>
       </div>
@@ -93,7 +90,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
               onClick={() => handleTabChange(tab.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 filterType === tab.id
-                  ? 'bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/20'
+                  ? 'bg-red-600 text-white font-bold shadow-md shadow-red-500/30'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -113,7 +110,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="pl-9 pr-4 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all font-mono"
+              className="pl-9 pr-4 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-400 transition-all font-mono"
             />
           </div>
 
@@ -123,7 +120,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
         </div>
       </div>
 
-      {/* Grid of 8 Vehicle Cards (Spacious, uncluttered!) */}
+      {/* Grid of 8 Vehicle Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {currentVehicles.map((v) => {
           const shift = shiftMap.get(v.id);
@@ -133,7 +130,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
           return (
             <div
               key={v.id}
-              className="glass-panel p-5 rounded-2xl border border-cyan-500/15 hover:border-cyan-400/40 transition-all group flex flex-col justify-between hover:shadow-xl hover:shadow-cyan-500/10"
+              className="glass-panel p-5 rounded-2xl border border-red-500/15 hover:border-red-500/40 transition-all group flex flex-col justify-between hover:shadow-xl hover:shadow-red-500/10"
             >
               <div>
                 {/* Header: ID, Badge, and Type */}
@@ -145,10 +142,10 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
                     <span
                       className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded-md ${
                         v.type === 'e-rickshaw'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                           : v.type === 'delivery-van'
-                          ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30'
-                          : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+                          ? 'bg-red-500/10 text-red-400 border border-red-500/30'
+                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/30'
                       }`}
                     >
                       {v.type.replace('-', ' ')}
@@ -174,7 +171,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
                       />
                       <path
                         className={`${
-                          socPct > 50 ? 'text-neon-green' : socPct > 30 ? 'text-cyan-400' : 'text-amber-400'
+                          socPct > 50 ? 'text-red-400' : socPct > 30 ? 'text-amber-400' : 'text-rose-500'
                         }`}
                         strokeDasharray={`${socPct}, 100`}
                         strokeWidth="3.5"
@@ -200,7 +197,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
 
                     <div className="flex justify-between text-slate-400 mb-1">
                       <span>Max Charge:</span>
-                      <span className="font-mono text-cyan-300 font-medium">
+                      <span className="font-mono text-red-300 font-medium">
                         {v.max_charge_kw} kW
                       </span>
                     </div>
@@ -209,12 +206,12 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
                       <span className="flex items-center gap-1">
                         <Heart className="w-3 h-3 text-rose-400" /> Health:
                       </span>
-                      <span className="font-mono font-medium text-emerald-400">{healthPct}%</span>
+                      <span className="font-mono font-medium text-amber-400">{healthPct}%</span>
                     </div>
 
                     <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-emerald-400 rounded-full"
+                        className="h-full bg-gradient-to-r from-red-500 to-amber-400 rounded-full"
                         style={{ width: `${healthPct}%` }}
                       />
                     </div>
@@ -225,7 +222,7 @@ export const FleetSection: React.FC<FleetSectionProps> = ({ vehicles, shifts }) 
               {/* Shift Information Footer */}
               {shift ? (
                 <div className="bg-slate-900/70 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-300">
-                  <div className="flex items-center justify-between font-mono text-cyan-300 mb-1">
+                  <div className="flex items-center justify-between font-mono text-red-300 mb-1">
                     <span>
                       {shift.start_hour.toString().padStart(2, '0')}:00 -{' '}
                       {shift.end_hour.toString().padStart(2, '0')}:00

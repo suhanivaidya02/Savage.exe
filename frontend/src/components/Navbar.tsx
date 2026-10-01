@@ -42,20 +42,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3 transition-all duration-300 backdrop-blur-md bg-[#05080f]/85 border-b border-cyan-500/15">
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3 transition-all duration-300 backdrop-blur-md bg-[#070305]/85 border-b border-red-500/20">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand Wordmark */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo('hero')}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
-            <Zap className="w-5 h-5 text-black fill-current" />
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 via-rose-600 to-amber-600 flex items-center justify-center shadow-lg shadow-red-500/30">
+            <Zap className="w-5 h-5 text-white fill-current" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xl font-extrabold tracking-wider font-display text-white">
                 VIREXA
               </span>
-              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                AI Fleet Grid
+              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+                Hot Red Edition
               </span>
             </div>
             <p className="text-[10px] text-slate-400 tracking-tight hidden sm:block">
@@ -64,22 +64,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Floating Live KPIs Pill */}
+        {/* Floating Live KPIs Pill (Updates live on every slider tick!) */}
         {kpis && (
           <div className="hidden lg:flex items-center gap-4 px-4 py-1.5 rounded-full glass-pill text-xs">
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400">Optimized:</span>
-              <span className="font-mono font-bold text-cyan-300">₹{kpis.total_optimized_cost_inr}</span>
+              <span className="font-mono font-bold text-white">₹{kpis.total_optimized_cost_inr.toLocaleString()}</span>
             </div>
             <div className="w-px h-3 bg-slate-700" />
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400">Savings:</span>
-              <span className="font-mono font-bold text-neon-green">₹{kpis.savings_inr} ({kpis.savings_percent}%)</span>
+              <span className="font-mono font-bold text-red-400">₹{kpis.savings_inr.toLocaleString()} ({kpis.savings_percent}%)</span>
             </div>
             <div className="w-px h-3 bg-slate-700" />
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400">On-Time:</span>
-              <span className="font-mono font-bold text-cyan-400">{kpis.ready_on_time_pct}%</span>
+              <span className="font-mono font-bold text-amber-300">{kpis.ready_on_time_pct}%</span>
             </div>
             {approvalStatus === "PENDING_APPROVAL" ? (
               <div className="flex items-center gap-1 text-[11px] text-amber-300 animate-pulse ml-1">
@@ -87,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-semibold">Pending Approval</span>
               </div>
             ) : (
-              <div className="flex items-center gap-1 text-[11px] text-emerald-400 ml-1">
+              <div className="flex items-center gap-1 text-[11px] text-red-400 ml-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Live Active</span>
               </div>
@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => scrollTo(sec.id)}
                 className={`px-2.5 py-1 rounded-lg text-xs transition-colors duration-200 ${
                   isActive
-                    ? 'text-cyan-300 bg-cyan-950/40 border border-cyan-500/30'
+                    ? 'text-red-400 bg-red-950/40 border border-red-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
                 }`}
               >
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border transition-all ${
               mockMode
                 ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
-                : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                : 'bg-red-500/10 border-red-500/30 text-red-300'
             }`}
           >
             <Database className="w-3 h-3" />
@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             title={reduceMotion ? "Enable Smooth Scroll & Motion" : "Reduce Motion / Low Spec"}
             className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-slate-800/60 border border-slate-700/60 text-slate-300 hover:text-white hover:border-slate-500 transition-all"
           >
-            {reduceMotion ? <EyeOff className="w-3 h-3 text-amber-400" /> : <Eye className="w-3 h-3 text-cyan-400" />}
+            {reduceMotion ? <EyeOff className="w-3 h-3 text-amber-400" /> : <Eye className="w-3 h-3 text-red-400" />}
             <span className="hidden sm:inline font-mono text-[11px]">{reduceMotion ? "Reduced" : "Motion"}</span>
           </button>
         </div>

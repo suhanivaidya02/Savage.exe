@@ -1,213 +1,324 @@
-import React, { useState } from 'react';
-import { Sliders, RefreshCw, Sparkles, Heart, Zap, Clock } from 'lucide-react';
-import { Weights, KPIs } from '../types';
+import React from 'react';
+import { Sliders, Sparkles, Heart, Zap, Clock, IndianRupee, ArrowUpDown, TrendingDown } from 'lucide-react';
+import { Weights, TariffRates, KPIs } from '../types';
 
 interface OptimizerControlsSectionProps {
   weights: Weights;
+  tariffRates: TariffRates;
   kpis: KPIs | null;
-  onOptimize: (weights: Weights) => Promise<void>;
+  onLiveWeightsChange: (weights: Weights) => void;
+  onLiveTariffChange: (rates: TariffRates) => void;
   isLoading: boolean;
 }
 
 export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> = ({
   weights,
+  tariffRates,
   kpis,
-  onOptimize,
+  onLiveWeightsChange,
+  onLiveTariffChange,
   isLoading,
 }) => {
-  const [localWeights, setLocalWeights] = useState<Weights>(weights);
+  const handleWeightSlider = (key: keyof Weights, value: number) => {
+    onLiveWeightsChange({ ...weights, [key]: value });
+  };
 
-  const handleSliderChange = (key: keyof Weights, value: number) => {
-    setLocalWeights((prev) => ({ ...prev, [key]: value }));
+  const handleTariffSlider = (key: keyof TariffRates, value: number) => {
+    onLiveTariffChange({ ...tariffRates, [key]: value });
   };
 
   const handlePreset = (preset: 'balanced' | 'eco_cost' | 'battery_preservation' | 'max_readiness') => {
-    let newWeights: Weights;
     if (preset === 'eco_cost') {
-      newWeights = { w_cost: 2.5, w_health: 0.8, w_avail: 1.0 };
+      onLiveWeightsChange({ w_cost: 3.0, w_health: 0.8, w_avail: 1.0 });
     } else if (preset === 'battery_preservation') {
-      newWeights = { w_cost: 1.0, w_health: 2.5, w_avail: 1.0 };
+      onLiveWeightsChange({ w_cost: 1.0, w_health: 3.0, w_avail: 1.0 });
     } else if (preset === 'max_readiness') {
-      newWeights = { w_cost: 0.8, w_health: 1.0, w_avail: 2.8 };
+      onLiveWeightsChange({ w_cost: 0.8, w_health: 1.0, w_avail: 3.0 });
     } else {
-      newWeights = { w_cost: 1.0, w_health: 1.0, w_avail: 1.0 };
+      onLiveWeightsChange({ w_cost: 1.0, w_health: 1.0, w_avail: 1.0 });
     }
-    setLocalWeights(newWeights);
-    onOptimize(newWeights);
   };
 
-  const handleApply = () => {
-    onOptimize(localWeights);
+  const handleTariffPreset = (type: 'default' | 'spike' | 'green') => {
+    if (type === 'spike') {
+      onLiveTariffChange({ night: 6.5, solar: 8.0, peak: 18.0, normal: 10.0 });
+    } else if (type === 'green') {
+      onLiveTariffChange({ night: 3.5, solar: 4.0, peak: 10.0, normal: 7.0 });
+    } else {
+      onLiveTariffChange({ night: 5.0, solar: 6.0, peak: 11.0, normal: 8.0 });
+    }
   };
 
   return (
     <section id="optimizer" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-5xl mx-auto">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green text-xs font-mono mb-3">
-          <Sliders className="w-3.5 h-3.5" />
-          <span>MULTI-OBJECTIVE TRADE-OFF ENGINE</span>
+      {/* Header */}
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3">
+          <Sliders className="w-3.5 h-3.5 text-red-500 animate-pulse" />
+          <span>REAL-TIME DYNAMIC CALCULATION ENGINE</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
-          Tune the MILP Optimizer
+          Tune the MILP Optimizer & Tariffs
         </h2>
-        <p className="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base">
-          Adjust objective weights. The backend solves the exact mathematical formulation in PuLP CBC
-          and updates all fleet schedules in real time.
+        <p className="text-slate-300 max-w-xl mx-auto mt-3 text-sm sm:text-base">
+          Drag any slider below. All costs, savings, and depot allocations recompute <span className="text-red-400 font-bold font-mono">live in real-time</span>.
         </p>
       </div>
 
-      <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-cyan-500/25 relative shadow-2xl">
-        {/* Presets Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs font-mono text-slate-300 uppercase">Operational Presets:</span>
+      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-red-500/30 relative shadow-2xl space-y-8">
+        {/* LIVE METRICS TOP TICKER BAR */}
+        {kpis && (
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-red-950/40 via-slate-900/80 to-amber-950/40 border border-red-500/30 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span className="text-[11px] font-mono uppercase text-slate-400">Total Live Fleet Cost:</span>
+              <div className="text-2xl sm:text-3xl font-mono font-black text-white">
+                ₹{kpis.total_optimized_cost_inr.toLocaleString()}
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[11px] font-mono uppercase text-slate-400">Naive Unmanaged Cost:</span>
+              <div className="text-xl sm:text-2xl font-mono font-bold text-rose-400 line-through">
+                ₹{kpis.naive_cost_inr.toLocaleString()}
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[11px] font-mono uppercase text-red-400 font-semibold">Live Daily Savings:</span>
+              <div className="text-2xl sm:text-3xl font-mono font-black text-red-400 text-glow-red">
+                ₹{kpis.savings_inr.toLocaleString()} ({kpis.savings_percent}%)
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[11px] font-mono uppercase text-slate-400">Fleet On-Time:</span>
+              <div className="text-xl sm:text-2xl font-mono font-bold text-amber-300">
+                {kpis.ready_on_time_pct}%
+              </div>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => handlePreset('balanced')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
-            >
-              Balanced (1:1:1)
-            </button>
-            <button
-              onClick={() => handlePreset('eco_cost')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-500/40 transition-all"
-            >
-              Min Cost (2.5x)
-            </button>
-            <button
-              onClick={() => handlePreset('battery_preservation')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-500/40 transition-all"
-            >
-              Battery Health (2.5x)
-            </button>
-            <button
-              onClick={() => handlePreset('max_readiness')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40 transition-all"
-            >
-              Max Readiness (2.8x)
-            </button>
+        )}
+
+        {/* 1. TARIFF RATE INTERACTIVE ADJUSTERS */}
+        <div className="p-5 rounded-2xl bg-slate-900/60 border border-red-500/20">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <IndianRupee className="w-4 h-4 text-red-400" />
+              <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider">
+                Live Electricity Tariff Inputs (₹/kWh)
+              </h3>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleTariffPreset('default')}
+                className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+              >
+                Standard Delhi
+              </button>
+              <button
+                onClick={() => handleTariffPreset('spike')}
+                className="px-2.5 py-1 rounded-lg text-xs font-mono bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-500/40"
+              >
+                Peak Surge (₹18)
+              </button>
+              <button
+                onClick={() => handleTariffPreset('green')}
+                className="px-2.5 py-1 rounded-lg text-xs font-mono bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40"
+              >
+                Low Solar (₹4)
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Night Rate Slider */}
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div className="flex justify-between items-center text-xs font-mono mb-2">
+                <span className="text-slate-400">Night Off-Peak:</span>
+                <span className="font-bold text-red-400 text-sm">₹{tariffRates.night.toFixed(1)}/kWh</span>
+              </div>
+              <input
+                type="range"
+                min="2.5"
+                max="9.0"
+                step="0.5"
+                value={tariffRates.night}
+                onChange={(e) => handleTariffSlider('night', parseFloat(e.target.value))}
+                className="w-full accent-red-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
+              <span className="text-[10px] text-slate-500 font-mono mt-1 block">Hours: 23:00 - 06:00</span>
+            </div>
+
+            {/* Solar Rate Slider */}
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div className="flex justify-between items-center text-xs font-mono mb-2">
+                <span className="text-slate-400">Solar Canopy:</span>
+                <span className="font-bold text-amber-400 text-sm">₹{tariffRates.solar.toFixed(1)}/kWh</span>
+              </div>
+              <input
+                type="range"
+                min="3.0"
+                max="10.0"
+                step="0.5"
+                value={tariffRates.solar}
+                onChange={(e) => handleTariffSlider('solar', parseFloat(e.target.value))}
+                className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
+              <span className="text-[10px] text-slate-500 font-mono mt-1 block">Hours: 10:00 - 16:00</span>
+            </div>
+
+            {/* Peak Rate Slider */}
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div className="flex justify-between items-center text-xs font-mono mb-2">
+                <span className="text-slate-400">Evening Peak:</span>
+                <span className="font-bold text-rose-400 text-sm">₹{tariffRates.peak.toFixed(1)}/kWh</span>
+              </div>
+              <input
+                type="range"
+                min="8.0"
+                max="22.0"
+                step="0.5"
+                value={tariffRates.peak}
+                onChange={(e) => handleTariffSlider('peak', parseFloat(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
+              <span className="text-[10px] text-slate-500 font-mono mt-1 block">Hours: 17:00 - 22:00</span>
+            </div>
           </div>
         </div>
 
-        {/* 3 Interactive Sliders */}
-        <div className="space-y-6">
-          {/* Slider 1: Cost Minimization */}
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
-                  <Zap className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white font-display">
-                    Charging Cost Minimization (w_cost)
-                  </h4>
-                  <p className="text-[11px] text-slate-400">
-                    Prioritizes off-peak night (₹5/kWh) and solar windows (₹6/kWh) over peak grid.
-                  </p>
-                </div>
-              </div>
-              <span className="font-mono text-base font-bold text-cyan-400">
-                {localWeights.w_cost.toFixed(1)}x
+        {/* 2. MILP OBJECTIVE WEIGHT SLIDERS */}
+        <div>
+          {/* Presets Header */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-red-400" />
+              <span className="text-xs font-mono text-slate-300 uppercase font-semibold">
+                Multi-Objective Optimizer Weights:
               </span>
             </div>
-            <input
-              type="range"
-              min="0.1"
-              max="4.0"
-              step="0.1"
-              value={localWeights.w_cost}
-              onChange={(e) => handleSliderChange('w_cost', parseFloat(e.target.value))}
-              className="w-full accent-cyan-400 cursor-pointer h-2 bg-slate-800 rounded-lg"
-            />
-          </div>
-
-          {/* Slider 2: Battery Health Preservation */}
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-neon-green/20 text-neon-green flex items-center justify-center">
-                  <Heart className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white font-display">
-                    Battery Health Preservation (w_health)
-                  </h4>
-                  <p className="text-[11px] text-slate-400">
-                    Heavily penalizes fast charging (&gt;0.8C) and limits degradation on worn packs.
-                  </p>
-                </div>
-              </div>
-              <span className="font-mono text-base font-bold text-neon-green">
-                {localWeights.w_health.toFixed(1)}x
-              </span>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => handlePreset('balanced')}
+                className="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+              >
+                Balanced (1:1:1)
+              </button>
+              <button
+                onClick={() => handlePreset('eco_cost')}
+                className="px-3 py-1 rounded-lg text-xs font-medium bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-500/40 transition-all"
+              >
+                Max Savings (3.0x)
+              </button>
+              <button
+                onClick={() => handlePreset('battery_preservation')}
+                className="px-3 py-1 rounded-lg text-xs font-medium bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40 transition-all"
+              >
+                Battery Shield (3.0x)
+              </button>
+              <button
+                onClick={() => handlePreset('max_readiness')}
+                className="px-3 py-1 rounded-lg text-xs font-medium bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-500/40 transition-all"
+              >
+                Rush Ready (3.0x)
+              </button>
             </div>
-            <input
-              type="range"
-              min="0.1"
-              max="4.0"
-              step="0.1"
-              value={localWeights.w_health}
-              onChange={(e) => handleSliderChange('w_health', parseFloat(e.target.value))}
-              className="w-full accent-neon-green cursor-pointer h-2 bg-slate-800 rounded-lg"
-            />
           </div>
 
-          {/* Slider 3: Shift Availability Readiness */}
-          <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
-                  <Clock className="w-4 h-4" />
+          <div className="space-y-4">
+            {/* Slider 1: Cost Minimization */}
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-red-500/30 transition-all">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-display">
+                      Cost Minimization (w_cost)
+                    </h4>
+                    <p className="text-[11px] text-slate-400">
+                      Aggressively concentrates charging into the cheapest off-peak night and solar slots.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white font-display">
-                    Vehicle Shift Readiness (w_avail)
-                  </h4>
-                  <p className="text-[11px] text-slate-400">
-                    Strictly enforces reaching target SoC + 15% safety buffer before shift departure.
-                  </p>
-                </div>
+                <span className="font-mono text-base font-bold text-red-400">
+                  {weights.w_cost.toFixed(1)}x
+                </span>
               </div>
-              <span className="font-mono text-base font-bold text-amber-400">
-                {localWeights.w_avail.toFixed(1)}x
-              </span>
+              <input
+                type="range"
+                min="0.1"
+                max="4.0"
+                step="0.1"
+                value={weights.w_cost}
+                onChange={(e) => handleWeightSlider('w_cost', parseFloat(e.target.value))}
+                className="w-full accent-red-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
             </div>
-            <input
-              type="range"
-              min="0.1"
-              max="4.0"
-              step="0.1"
-              value={localWeights.w_avail}
-              onChange={(e) => handleSliderChange('w_avail', parseFloat(e.target.value))}
-              className="w-full accent-amber-400 cursor-pointer h-2 bg-slate-800 rounded-lg"
-            />
-          </div>
-        </div>
 
-        {/* Action Button & Live Output */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-800">
-          <div className="text-xs font-mono text-slate-400">
-            {kpis ? (
-              <span>
-                Current Optimized: <span className="text-white font-bold">₹{kpis.total_optimized_cost_inr}</span> | Savings:{' '}
-                <span className="text-neon-green font-bold">₹{kpis.savings_inr} ({kpis.savings_percent}%)</span>
-              </span>
-            ) : (
-              'Ready to optimize'
-            )}
-          </div>
+            {/* Slider 2: Battery Health Preservation */}
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-amber-500/30 transition-all">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                    <Heart className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-display">
+                      Battery Health Preservation (w_health)
+                    </h4>
+                    <p className="text-[11px] text-slate-400">
+                      Penalizes rapid DC fast charging (&gt;0.8C), protecting cell longevity.
+                    </p>
+                  </div>
+                </div>
+                <span className="font-mono text-base font-bold text-amber-400">
+                  {weights.w_health.toFixed(1)}x
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0.1"
+                max="4.0"
+                step="0.1"
+                value={weights.w_health}
+                onChange={(e) => handleWeightSlider('w_health', parseFloat(e.target.value))}
+                className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
+            </div>
 
-          <button
-            onClick={handleApply}
-            disabled={isLoading}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold font-display hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] active:scale-95 transition-all disabled:opacity-50"
-          >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-            <span>{isLoading ? 'Solving MILP...' : 'Re-Run Optimizer'}</span>
-          </button>
+            {/* Slider 3: Shift Availability Readiness */}
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-rose-500/30 transition-all">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-display">
+                      Vehicle Shift Readiness (w_avail)
+                    </h4>
+                    <p className="text-[11px] text-slate-400">
+                      Enforces target SoC + 15% safety buffer before shift dispatch.
+                    </p>
+                  </div>
+                </div>
+                <span className="font-mono text-base font-bold text-rose-400">
+                  {weights.w_avail.toFixed(1)}x
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0.1"
+                max="4.0"
+                step="0.1"
+                value={weights.w_avail}
+                onChange={(e) => handleWeightSlider('w_avail', parseFloat(e.target.value))}
+                className="w-full accent-rose-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

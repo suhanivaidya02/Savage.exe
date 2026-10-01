@@ -28,7 +28,7 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
     {
       name: 'Virexa Optimized Plan',
       cost: kpis.total_optimized_cost_inr,
-      color: '#00e5ff',
+      color: '#ff1e42',
       desc: 'MILP mathematical schedule shifted to solar & night off-peak.'
     }
   ];
@@ -39,32 +39,32 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
   return (
     <section id="savings" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green text-xs font-mono mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3">
           <TrendingDown className="w-3.5 h-3.5" />
           <span>FINANCIAL IMPACT & GRID ARBITRAGE</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Measurable Fleet Savings
         </h2>
-        <p className="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base">
+        <p className="text-slate-300 max-w-xl mx-auto mt-3 text-sm sm:text-base">
           Proven mathematical superiority: comparing our MILP schedule against standard unmanaged charging behavior.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* Left: Giant Savings Callout Card */}
-        <div className="glass-panel p-8 rounded-2xl border border-neon-green/30 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-emerald-950/20 via-slate-900/60 to-cyan-950/20">
+        <div className="glass-panel p-8 rounded-2xl border border-red-500/30 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-red-950/30 via-slate-900/60 to-amber-950/20">
           <div>
-            <span className="text-xs font-mono text-neon-green uppercase tracking-wider font-semibold">
+            <span className="text-xs font-mono text-red-400 uppercase tracking-wider font-semibold">
               Daily Operational Arbitrage
             </span>
             <div className="flex items-baseline gap-2 mt-3 mb-1">
-              <span className="text-5xl sm:text-6xl font-mono font-black text-neon-green text-glow-neon">
-                ₹{kpis.savings_inr}
+              <span className="text-5xl sm:text-6xl font-mono font-black text-red-400 text-glow-red">
+                ₹{kpis.savings_inr.toLocaleString()}
               </span>
               <span className="text-sm font-mono text-slate-400">/ day</span>
             </div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neon-green/10 text-neon-green text-xs font-mono font-semibold border border-neon-green/30">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-mono font-semibold border border-red-500/30">
               <Sparkles className="w-3 h-3" />
               <span>{kpis.savings_percent}% reduction vs naive</span>
             </div>
@@ -77,7 +77,7 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
             </div>
             <div className="flex justify-between font-mono">
               <span className="text-slate-400">Annual Fleet Impact (365d):</span>
-              <span className="font-bold text-cyan-300">₹{annualSavings.toLocaleString()}</span>
+              <span className="font-bold text-amber-300">₹{annualSavings.toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -102,9 +102,9 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
                       if (!payload || !payload.length) return null;
                       const data = payload[0].payload;
                       return (
-                        <div className="glass-panel p-3 rounded-lg text-xs font-mono border border-cyan-400/40">
+                        <div className="glass-panel p-3 rounded-lg text-xs font-mono border border-red-400/40">
                           <p className="font-bold text-white">{data.name}</p>
-                          <p className="text-neon-green text-sm mt-1">₹{data.cost} Total Cost</p>
+                          <p className="text-red-400 text-sm mt-1">₹{data.cost.toLocaleString()} Total Cost</p>
                           <p className="text-slate-400 text-[10px] mt-0.5">{data.desc}</p>
                         </div>
                       );
@@ -128,11 +128,11 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
             </div>
             <div className="bg-slate-900/40 p-2 rounded-lg">
               <div className="text-[10px] text-slate-400 font-mono">CAPTURED SOLAR</div>
-              <div className="text-xs font-bold text-emerald-400 font-mono">₹6.00/kWh</div>
+              <div className="text-xs font-bold text-amber-400 font-mono">₹6.00/kWh</div>
             </div>
             <div className="bg-slate-900/40 p-2 rounded-lg">
               <div className="text-[10px] text-slate-400 font-mono">OFF-PEAK NIGHT</div>
-              <div className="text-xs font-bold text-cyan-400 font-mono">₹5.00/kWh</div>
+              <div className="text-xs font-bold text-red-400 font-mono">₹5.00/kWh</div>
             </div>
           </div>
         </div>

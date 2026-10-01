@@ -30,34 +30,34 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
   return (
     <section id="schedule" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-7xl mx-auto">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono mb-3">
           <Calendar className="w-3.5 h-3.5" />
           <span>24-HOUR OPTIMIZED ALLOCATION MATRIX</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Charging Schedule Gantt
         </h2>
-        <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-sm sm:text-base">
+        <p className="text-slate-300 max-w-2xl mx-auto mt-3 text-sm sm:text-base">
           Every slot is chosen by the MILP solver to avoid peak grid rates while guaranteeing 100% on-time departure.
           Hover over any charging block to inspect power, cost, and reasons.
         </p>
       </div>
 
       {/* Station Color Legend & Tariff Profile Overview */}
-      <div className="glass-panel p-4 rounded-xl border border-cyan-500/20 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="glass-panel p-4 rounded-xl border border-red-500/20 mb-6 flex flex-wrap items-center justify-between gap-4">
         {/* Stations Legend */}
         <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
           <span className="text-slate-400">STATIONS:</span>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-cyan-400 shadow-[0_0_8px_#00e5ff]" />
+            <span className="w-3 h-3 rounded bg-red-500 shadow-[0_0_8px_#ff1e42]" />
             <span className="text-white">S1 Depot Main (7.2 kW)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-emerald-400 shadow-[0_0_8px_#39ff88]" />
+            <span className="w-3 h-3 rounded bg-amber-500 shadow-[0_0_8px_#ff6b2b]" />
             <span className="text-white">S2 Depot Solar (7.2 kW)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-amber-400 shadow-[0_0_8px_#ffb703]" />
+            <span className="w-3 h-3 rounded bg-rose-600 shadow-[0_0_8px_#e11d48]" />
             <span className="text-white">S3 Public Fast DC (22 kW)</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -68,12 +68,12 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
 
         {/* Hover Tooltip Card Preview */}
         {hoveredEvent?.event ? (
-          <div className="flex items-center gap-3 px-3 py-1 rounded-lg bg-slate-900 border border-cyan-500/40 text-xs font-mono">
-            <span className="text-cyan-300 font-bold">{hoveredEvent.vehicle.id}</span>
+          <div className="flex items-center gap-3 px-3 py-1 rounded-lg bg-slate-900 border border-red-500/40 text-xs font-mono">
+            <span className="text-red-400 font-bold">{hoveredEvent.vehicle.id}</span>
             <span className="text-slate-400">{hoveredEvent.event.time_str}</span>
             <span className="text-white font-semibold">{hoveredEvent.event.station_name}</span>
-            <span className="text-neon-green">{hoveredEvent.event.energy_kwh} kWh</span>
-            <span className="text-amber-300">₹{hoveredEvent.event.cost_inr}</span>
+            <span className="text-amber-300">{hoveredEvent.event.energy_kwh} kWh</span>
+            <span className="text-red-400 font-bold">₹{hoveredEvent.event.cost_inr}</span>
             <span className="text-slate-400">({hoveredEvent.event.c_rate}C)</span>
           </div>
         ) : (
@@ -105,9 +105,9 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                       isPeak
                         ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                         : isOffPeak
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+                        ? 'bg-red-500/20 text-red-300 border border-red-500/30'
                         : isSolar
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'bg-slate-800/80 text-slate-300'
                     }`}
                     title={`${h}:00 - ₹${rate}/kWh (${t?.tier || 'Standard'})`}
@@ -147,7 +147,7 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
                 >
                   {/* Vehicle Label & Type */}
                   <div className="w-24 shrink-0 flex items-center gap-1.5 text-xs font-mono">
-                    <span className="font-bold text-white group-hover:text-cyan-300">{v.id}</span>
+                    <span className="font-bold text-white group-hover:text-red-400">{v.id}</span>
                     <span className="text-[10px] text-slate-500 truncate">{v.type.split('-')[0]}</span>
                   </div>
 
@@ -166,11 +166,11 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
 
                       if (ev) {
                         if (ev.station_id === 'S1') {
-                          cellBg = 'bg-cyan-400 shadow-[0_0_6px_#00e5ff]';
+                          cellBg = 'bg-red-500 shadow-[0_0_6px_#ff1e42]';
                         } else if (ev.station_id === 'S2') {
-                          cellBg = 'bg-emerald-400 shadow-[0_0_6px_#39ff88]';
+                          cellBg = 'bg-amber-500 shadow-[0_0_6px_#ff6b2b]';
                         } else {
-                          cellBg = 'bg-amber-400 shadow-[0_0_6px_#ffb703]';
+                          cellBg = 'bg-rose-600 shadow-[0_0_6px_#e11d48]';
                         }
                       } else if (isOnShift) {
                         cellBg = 'bg-slate-800/90 border border-slate-700/60 border-dashed';

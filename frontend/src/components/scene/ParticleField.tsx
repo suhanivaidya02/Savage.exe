@@ -12,16 +12,16 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({ count = 220 }) => 
   const [positions, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
-    const colorCyan = new THREE.Color('#00e5ff');
-    const colorNeon = new THREE.Color('#39ff88');
-    const colorAmber = new THREE.Color('#ffb703');
+    const colorRed = new THREE.Color('#ff1e42');
+    const colorAmber = new THREE.Color('#ff6b2b');
+    const colorFlame = new THREE.Color('#ffaa00');
 
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 36;
       pos[i * 3 + 1] = 0.5 + Math.random() * 12;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 44;
 
-      const pickColor = Math.random() > 0.6 ? colorNeon : Math.random() > 0.2 ? colorCyan : colorAmber;
+      const pickColor = Math.random() > 0.6 ? colorRed : Math.random() > 0.3 ? colorAmber : colorFlame;
       col[i * 3] = pickColor.r;
       col[i * 3 + 1] = pickColor.g;
       col[i * 3 + 2] = pickColor.b;
@@ -34,8 +34,8 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({ count = 220 }) => 
     const pos = pointsRef.current.geometry.attributes.position.array as Float32Array;
 
     for (let i = 0; i < count; i++) {
-      // Gentle upward energy current
-      pos[i * 3 + 1] += delta * 0.8;
+      // Gentle upward fiery energy current
+      pos[i * 3 + 1] += delta * 0.85;
       if (pos[i * 3 + 1] > 14) {
         pos[i * 3 + 1] = 0.2;
       }
@@ -60,10 +60,10 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({ count = 220 }) => 
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.12}
+        size={0.13}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.85}
         blending={THREE.AdditiveBlending}
       />
     </points>
