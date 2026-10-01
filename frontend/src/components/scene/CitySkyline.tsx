@@ -1,98 +1,116 @@
 import React, { useMemo } from 'react';
+import * as THREE from 'three';
 
 export const CitySkyline: React.FC = () => {
-  // Lightweight 16 iconic cyberpunk skyline monoliths
-  const { buildings } = useMemo(() => {
-    const list: { position: [number, number, number]; scale: [number, number, number]; hasBeacon: boolean; color: string }[] = [];
-    
-    // Left cityscape silhouette (8 towers)
-    const leftCoords: [number, number, number, number, number][] = [
-      [-12, -15, 3.2, 16, 3.5],
-      [-16, -5, 4.0, 22, 4.2],
-      [-21, 5, 3.8, 14, 3.8],
-      [-14, 15, 3.5, 18, 3.6],
-      [-24, -10, 4.5, 26, 4.5],
-      [-22, 18, 3.6, 20, 3.6],
-      [-18, 25, 4.2, 15, 4.0],
-      [-26, 8, 4.8, 24, 4.5],
+  // Distant Cyberpunk Metropolis Silhouette (Far in the background, z <= -45)
+  // Perfectly framing the central EV showcase without obstructing the camera
+  const { towers, spires } = useMemo(() => {
+    const towerList: {
+      position: [number, number, number];
+      scale: [number, number, number];
+      color: string;
+      hasCrown: boolean;
+      windowRows: number;
+    }[] = [];
+
+    // Distant city skyline backdrop array (spread wide: x from -55 to +55, z from -50 to -75)
+    const coordinates: [number, number, number, number, number, string][] = [
+      // Far Left Cluster
+      [-50, -55, 6, 32, 6, '#ff1e42'],
+      [-42, -50, 5, 26, 5, '#ff6b2b'],
+      [-35, -58, 7, 40, 7, '#e11d48'],
+      [-28, -52, 6, 28, 6, '#ff3366'],
+      [-22, -60, 8, 48, 8, '#ff1e42'], // Iconic supertall
+      [-16, -55, 5, 24, 5, '#ffaa00'],
+      
+      // Far Right Cluster
+      [16, -55, 5, 24, 5, '#ffaa00'],
+      [22, -60, 8, 48, 8, '#ff1e42'], // Iconic supertall
+      [28, -52, 6, 28, 6, '#ff3366'],
+      [35, -58, 7, 40, 7, '#e11d48'],
+      [42, -50, 5, 26, 5, '#ff6b2b'],
+      [50, -55, 6, 32, 6, '#ff1e42'],
+
+      // Deep Horizon Center Gap Fillers (Low-profile so car is completely unobstructed)
+      [-8, -75, 4, 18, 4, '#ff1e42'],
+      [0, -78, 5, 20, 5, '#ff6b2b'],
+      [8, -75, 4, 18, 4, '#ff3366'],
     ];
 
-    // Right cityscape silhouette (8 towers)
-    const rightCoords: [number, number, number, number, number][] = [
-      [12, -15, 3.2, 16, 3.5],
-      [16, -5, 4.0, 22, 4.2],
-      [21, 5, 3.8, 14, 3.8],
-      [14, 15, 3.5, 18, 3.6],
-      [24, -10, 4.5, 26, 4.5],
-      [22, 18, 3.6, 20, 3.6],
-      [18, 25, 4.2, 15, 4.0],
-      [26, 8, 4.8, 24, 4.5],
-    ];
-
-    [...leftCoords, ...rightCoords].forEach(([x, z, w, h, d], i) => {
-      list.push({
+    coordinates.forEach(([x, z, w, h, d, color], i) => {
+      towerList.push({
         position: [x, h / 2 - 0.5, z],
         scale: [w, h, d],
-        hasBeacon: i % 2 === 0,
-        color: i % 3 === 0 ? '#ff6b2b' : '#ff1e42',
+        color,
+        hasCrown: i % 2 === 0,
+        windowRows: Math.floor(h / 5),
       });
     });
 
-    return { buildings: list };
+    // Communication laser spires
+    const spireList: [number, number, number, string][] = [
+      [-22, 50, -60, '#ff1e42'],
+      [22, 50, -60, '#ff1e42'],
+      [-35, 42, -58, '#ff6b2b'],
+      [35, 42, -58, '#ff6b2b'],
+    ];
+
+    return { towers: towerList, spires: spireList };
   }, []);
 
   return (
     <group>
-      {buildings.map((b, i) => (
-        <group key={i} position={b.position}>
-          {/* Main Obsidian Tower */}
-          <mesh scale={b.scale}>
+      {/* Distant Skyscrapers */}
+      {towers.map((t, i) => (
+        <group key={i} position={t.position}>
+          {/* Main Dark Obsidian Monolith */}
+          <mesh scale={t.scale}>
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
-              color="#0c0407"
-              metalness={0.85}
-              roughness={0.35}
+              color="#080205"
+              metalness={0.9}
+              roughness={0.25}
             />
           </mesh>
 
-          {/* Glowing Rooftop Beacon */}
-          {b.hasBeacon && (
-            <mesh position={[0, b.scale[1] / 2 + 0.1, 0]}>
-              <boxGeometry args={[b.scale[0] * 0.95, 0.15, b.scale[2] * 0.95]} />
+          {/* Glowing Rooftop Crown Edge */}
+          {t.hasCrown && (
+            <mesh position={[0, t.scale[1] / 2 + 0.15, 0]}>
+              <boxGeometry args={[t.scale[0] * 0.98, 0.3, t.scale[2] * 0.98]} />
               <meshStandardMaterial
-                color={b.color}
-                emissive={b.color}
-                emissiveIntensity={2.8}
+                color={t.color}
+                emissive={t.color}
+                emissiveIntensity={3.5}
               />
             </mesh>
           )}
 
-          {/* Emissive Vertical Laser Core Ribbon */}
-          <mesh position={[0, 0, b.scale[2] / 2 + 0.02]}>
-            <planeGeometry args={[0.2, b.scale[1] * 0.75]} />
+          {/* High-tech Vertical Data Conduit Ribbon */}
+          <mesh position={[0, 0, t.scale[2] / 2 + 0.05]}>
+            <planeGeometry args={[0.35, t.scale[1] * 0.85]} />
             <meshStandardMaterial
-              color={b.color}
-              emissive={b.color}
-              emissiveIntensity={2.2}
+              color={t.color}
+              emissive={t.color}
+              emissiveIntensity={2.5}
             />
           </mesh>
         </group>
       ))}
 
-      {/* Distant Depot S1/S2 Spire Antennas */}
-      <group position={[-16, 12, -22]}>
-        <mesh>
-          <cylinderGeometry args={[0.08, 0.3, 16, 6]} />
-          <meshStandardMaterial color="#ff1e42" emissive="#ff1e42" emissiveIntensity={3.5} />
-        </mesh>
-      </group>
-
-      <group position={[16, 12, -22]}>
-        <mesh>
-          <cylinderGeometry args={[0.08, 0.3, 16, 6]} />
-          <meshStandardMaterial color="#ff6b2b" emissive="#ff6b2b" emissiveIntensity={3.5} />
-        </mesh>
-      </group>
+      {/* Futuristic Depot S1/S2 Laser Communication Spires */}
+      {spires.map(([x, y, z, color], idx) => (
+        <group key={idx} position={[x, y, z]}>
+          <mesh>
+            <cylinderGeometry args={[0.08, 0.4, 24, 6]} />
+            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={4.5} />
+          </mesh>
+          {/* Beacon light at tip */}
+          <mesh position={[0, 12, 0]}>
+            <sphereGeometry args={[0.4, 8, 8]} />
+            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={6.0} />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 };

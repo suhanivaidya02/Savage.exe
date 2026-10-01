@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Database, ShieldAlert, CheckCircle2, EyeOff, Eye } from 'lucide-react';
+import { Zap, Database, ShieldAlert, CheckCircle2, EyeOff, Eye, HelpCircle } from 'lucide-react';
 import { KPIs } from '../types';
 
 interface NavbarProps {
@@ -10,6 +10,7 @@ interface NavbarProps {
   mockMode: boolean;
   onToggleMockMode: () => void;
   approvalStatus: string;
+  onOpenGuide?: () => void;
 }
 
 const SECTIONS = [
@@ -33,6 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   mockMode,
   onToggleMockMode,
   approvalStatus,
+  onOpenGuide,
 }) => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -64,12 +66,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Floating Live KPIs Pill (Updates live on every slider tick!) */}
+        {/* Floating Live KPIs Pill (Click to jump to Chapter 5 Optimizer Sliders!) */}
         {kpis && (
-          <div className="hidden lg:flex items-center gap-4 px-4 py-1.5 rounded-full glass-pill text-xs">
+          <button
+            onClick={() => scrollTo('optimizer')}
+            title="Click to jump to Chapter 05: Optimizer Controls & live sliders"
+            className="hidden lg:flex items-center gap-3.5 px-4 py-1.5 rounded-full glass-pill text-xs hover:border-red-400/60 hover:bg-red-950/30 transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-1.5 text-red-400 font-mono font-bold text-[10px] uppercase tracking-wider">
+              <Zap className="w-3 h-3 text-red-500 fill-current animate-pulse" />
+              <span>24h Fleet Total:</span>
+            </div>
+            <div className="w-px h-3 bg-slate-700" />
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400">Optimized:</span>
-              <span className="font-mono font-bold text-white">₹{kpis.total_optimized_cost_inr.toLocaleString()}</span>
+              <span className="font-mono font-bold text-white group-hover:text-red-200">₹{kpis.total_optimized_cost_inr.toLocaleString()}</span>
             </div>
             <div className="w-px h-3 bg-slate-700" />
             <div className="flex items-center gap-1.5">
@@ -84,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {approvalStatus === "PENDING_APPROVAL" ? (
               <div className="flex items-center gap-1 text-[11px] text-amber-300 animate-pulse ml-1">
                 <ShieldAlert className="w-3.5 h-3.5" />
-                <span className="font-semibold">Pending Approval</span>
+                <span className="font-semibold">Re-plan Pending</span>
               </div>
             ) : (
               <div className="flex items-center gap-1 text-[11px] text-red-400 ml-1">
@@ -92,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>Live Active</span>
               </div>
             )}
-          </div>
+          </button>
         )}
 
         {/* Section Dots / Nav Links */}
@@ -115,8 +126,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* Controls: Mock Mode & Reduce Motion */}
+        {/* Controls: Guide, Mock Mode & Reduce Motion */}
         <div className="flex items-center gap-2">
+          {/* Feature Guide Button */}
+          {onOpenGuide && (
+            <button
+              onClick={onOpenGuide}
+              className="flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-gradient-to-r from-red-600/30 to-amber-600/30 border border-red-500/40 text-red-200 hover:text-white hover:border-red-400 transition-all shadow-md font-mono"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-red-400" />
+              <span className="hidden sm:inline">Guide</span>
+            </button>
+          )}
           <button
             onClick={onToggleMockMode}
             title={mockMode ? "Running in Offline Mock Mode" : "Connected to Live FastAPI Backend"}

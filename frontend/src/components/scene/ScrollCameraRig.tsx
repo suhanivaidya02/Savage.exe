@@ -15,8 +15,8 @@ export const ScrollCameraRig: React.FC<ScrollCameraRigProps> = ({ scrollProgress
 
   // 6 Narrative Waypoints mapped to the 10 chapters
   const waypoints = [
-    // 0.0 - Hero: 3/4 Isometric Showcase
-    { t: 0.0, pos: new THREE.Vector3(3.2, 2.2, 6.0), lookAt: new THREE.Vector3(0, 0.6, 0) },
+    // 0.0 - Hero: 3/4 Isometric Sports Car Showcase
+    { t: 0.0, pos: new THREE.Vector3(2.4, 1.7, 5.2), lookAt: new THREE.Vector3(0, 0.45, 0) },
     // 0.18 - Problem: Low-Angle Tension / Silhouette
     { t: 0.18, pos: new THREE.Vector3(-4.5, 1.4, 4.2), lookAt: new THREE.Vector3(0, 0.7, 0.5) },
     // 0.35 - Fleet: High Vantage Overview of City Grid

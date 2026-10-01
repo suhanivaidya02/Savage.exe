@@ -9,7 +9,10 @@ import {
   Sun,
   Flame,
   Gauge,
-  ArrowDown
+  ArrowDown,
+  HelpCircle,
+  Sliders,
+  CheckCircle2
 } from 'lucide-react';
 import { KPIs } from '../types';
 
@@ -17,12 +20,16 @@ interface HeroSectionProps {
   kpis: KPIs | null;
   onExploreClick: () => void;
   onStationSelect?: (color: string) => void;
+  onOpenGuide?: () => void;
+  onTuneOptimizerClick?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   kpis,
   onExploreClick,
   onStationSelect,
+  onOpenGuide,
+  onTuneOptimizerClick,
 }) => {
   const [selectedStation, setSelectedStation] = useState<'S1' | 'S2' | 'S3'>('S1');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -43,31 +50,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       name: 'S1 Depot Main',
       power: '7.2 kW',
       rate: '₹5.00/kWh',
-      type: 'Night Off-Peak',
+      type: 'Night Off-Peak (23:00 - 06:00)',
       cRate: '0.22C',
       health: 'Gentle Charging',
       color: '#ff1e42',
       badgeColor: 'text-red-400 bg-red-950/60 border-red-500/40',
+      sessionCost: 36,
+      sessionEnergy: 7.2,
+      savingsVsFast: 206,
+      thermalImpact: 'Zero Battery Wear (0%)',
     },
     S2: {
       name: 'S2 Solar Canopy',
       power: '7.2 kW',
       rate: '₹6.00/kWh',
-      type: '100% Clean Solar',
+      type: 'Midday Solar (10:00 - 15:00)',
       cRate: '0.22C',
-      health: 'Eco Optimal',
+      health: '100% Clean Solar',
       color: '#ff6b2b',
       badgeColor: 'text-amber-400 bg-amber-950/60 border-amber-500/40',
+      sessionCost: 43.2,
+      sessionEnergy: 7.2,
+      savingsVsFast: 198.8,
+      thermalImpact: 'Eco Optimal (0%)',
     },
     S3: {
       name: 'S3 DC Hypercharge',
       power: '22.0 kW',
       rate: '₹11.00/kWh',
-      type: 'Peak Grid Fast',
+      type: 'Evening Peak Grid (17:00 - 21:00)',
       cRate: '0.85C',
-      health: 'Thermal Stress',
+      health: 'High Thermal Stress',
       color: '#ff0033',
       badgeColor: 'text-rose-400 bg-rose-950/60 border-rose-500/40',
+      sessionCost: 242,
+      sessionEnergy: 22.0,
+      savingsVsFast: 0,
+      thermalImpact: 'Severe Wear (+12% Degradation)',
     },
   };
 
@@ -81,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-16 z-20 max-w-7xl mx-auto">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-16 z-20 max-w-7xl mx-auto text-center">
       {/* Ambient background glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -95,20 +114,41 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Hero Headline */}
-      <h1 className="text-5xl sm:text-7xl md:text-8xl font-black font-display text-white tracking-tight text-center leading-[1.05]">
+      <h1 className="text-5xl sm:text-7xl md:text-8xl font-black font-display text-white tracking-tight leading-[1.05]">
         VIREXA
       </h1>
 
-      <p className="text-xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-400 mt-3 font-display text-center tracking-tight">
+      <p className="text-xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-400 mt-3 font-display tracking-tight">
         Charge Smart. Run Longer. Spend Less.
       </p>
 
-      <p className="text-sm sm:text-base text-slate-300 max-w-2xl text-center mt-3 leading-relaxed font-normal">
+      <p className="text-sm sm:text-base text-slate-300 max-w-2xl mt-3 leading-relaxed font-normal">
         AI-driven mathematical scheduling for commercial EV fleets in Delhi NCR.
         Balancing time-of-day tariffs, battery degradation, and guaranteed shift availability.
       </p>
 
-      {/* 3D WEBGL CAR STAGE & HOLOGRAPHIC TELEMETRY HUD */}
+      {/* Quick Action Navigation Strip */}
+      <div className="flex flex-wrap items-center justify-center gap-3 mt-5">
+        <button
+          onClick={onTuneOptimizerClick || onExploreClick}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white font-mono text-xs font-bold shadow-lg shadow-red-600/30 hover:brightness-110 active:scale-95 transition-all"
+        >
+          <Sliders className="w-3.5 h-3.5" />
+          <span>Tune Live Optimizer (Sliders)</span>
+        </button>
+
+        {onOpenGuide && (
+          <button
+            onClick={onOpenGuide}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/80 border border-red-500/30 text-red-300 hover:text-white hover:border-red-400 font-mono text-xs font-semibold backdrop-blur-md transition-all"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-red-400" />
+            <span>How Virexa Works (System Guide)</span>
+          </button>
+        )}
+      </div>
+
+      {/* ================= 3D WEBGL CAR STAGE & HOLOGRAPHIC TELEMETRY HUD ================= */}
       <div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -157,13 +197,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </div>
 
-        {/* Center Portal: 3D WebGL EV Sedan sits in background canvas! */}
+        {/* Center Portal: Clean unobstructed view of 3D Sports EV! */}
         <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6 py-4 min-h-[300px]">
           {/* Left Floating HUD: Vehicle Status */}
           <div
             className="w-full lg:w-64 space-y-3 z-10 transition-transform duration-200"
             style={{
-              transform: `translateX(${mousePos.x * 10}px) translateY(${mousePos.y * 10}px)`,
+              transform: `translateX(${mousePos.x * 8}px) translateY(${mousePos.y * 8}px)`,
             }}
           >
             <div className="glass-panel p-3.5 rounded-2xl border border-red-500/20 text-left">
@@ -195,52 +235,53 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Center Transparent Stage Window */}
-          <div className="relative flex-1 w-full h-64 lg:h-80 flex items-center justify-center">
-            {/* Holographic Concentric Ground Ring Indicator */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-64 h-64 rounded-full border border-red-500/20 animate-spin-slow" />
-              <div className="w-48 h-48 rounded-full border border-dashed border-amber-500/30" />
-            </div>
-
+          {/* Center Transparent Stage Window (Unobstructed for 3D EV Sedan) */}
+          <div className="relative flex-1 w-full h-64 lg:h-80 flex items-center justify-center pointer-events-none">
             {/* Holographic Status Pill */}
-            <div className="absolute bottom-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 text-xs font-mono shadow-xl backdrop-blur-md">
+            <div className="absolute bottom-4 flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 text-xs font-mono shadow-xl backdrop-blur-md pointer-events-auto">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-              <span className="text-slate-300">DOCK:</span>
+              <span className="text-slate-300">ACTIVE DOCK:</span>
               <span className="text-red-400 font-bold">{currentSt.name}</span>
               <span className="text-slate-500">·</span>
               <span className="text-amber-300 font-bold">{currentSt.power}</span>
             </div>
           </div>
 
-          {/* Right Floating HUD: Station Economics & Degradation */}
+          {/* Right Floating HUD: Station Economics, Session Math & Degradation */}
           <div
             className="w-full lg:w-64 space-y-3 z-10 transition-transform duration-200"
             style={{
-              transform: `translateX(${-mousePos.x * 10}px) translateY(${-mousePos.y * 10}px)`,
+              transform: `translateX(${-mousePos.x * 8}px) translateY(${-mousePos.y * 8}px)`,
             }}
           >
+            {/* Live 1-Hour Session Cost Calculation */}
             <div className="glass-panel p-3.5 rounded-2xl border border-red-500/20 text-left">
               <div className="flex items-center justify-between text-xs text-slate-400 font-mono mb-1">
-                <span>STATION TARIFF</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-bold border ${currentSt.badgeColor}`}>
-                  {selectedStation}
+                <span>1-HR SESSION COST</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono font-bold border ${currentSt.badgeColor}`}>
+                  {currentSt.rate}
                 </span>
               </div>
-              <div className="text-2xl font-mono font-bold text-white">
-                {currentSt.rate}
+              <div className="text-2xl font-mono font-bold text-white flex items-center gap-1.5">
+                <span>₹{currentSt.sessionCost.toFixed(0)}</span>
+                {currentSt.savingsVsFast > 0 && (
+                  <span className="text-xs font-mono font-bold text-emerald-400">
+                    (Save ₹{currentSt.savingsVsFast.toFixed(0)})
+                  </span>
+                )}
               </div>
               <div className="text-xs text-slate-400 font-mono mt-0.5">
-                {currentSt.type}
+                {currentSt.sessionEnergy} kWh @ {currentSt.type}
               </div>
             </div>
 
+            {/* Battery Thermal & Degradation Risk */}
             <div className="glass-panel p-3.5 rounded-2xl border border-red-500/20 text-left">
               <div className="flex items-center justify-between text-xs text-slate-400 font-mono mb-1">
                 <span>C-RATE & HEALTH</span>
                 <span className="font-mono text-white font-bold">{currentSt.cRate}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-mono mt-1 text-slate-300">
+              <div className="flex items-center gap-1.5 text-xs font-mono mt-1 text-slate-200">
                 {selectedStation === 'S3' ? (
                   <Flame className="w-3.5 h-3.5 text-rose-500 shrink-0" />
                 ) : selectedStation === 'S2' ? (
@@ -251,70 +292,73 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <span>{currentSt.health}</span>
               </div>
               <div className="text-[10px] text-slate-400 font-mono mt-2 pt-2 border-t border-slate-800">
-                {selectedStation === 'S3'
-                  ? 'High degradation penalty added'
-                  : 'Zero degradation penalty incurred'}
+                {currentSt.thermalImpact}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Showcase Footer */}
-        <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-800/80 text-xs font-mono text-slate-400">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-red-400">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-              WebGL 3D Rig Active
+        {/* Bottom Showcase Informative Footer */}
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-800/80 text-xs font-mono text-slate-400 text-left">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1.5 text-red-400 font-semibold">
+              <CheckCircle2 className="w-3.5 h-3.5 text-red-500" />
+              Interactive Simulator
             </span>
             <span>·</span>
-            <span>Hot Red Cyber Aesthetic</span>
+            <span>Switch docks to test instant charging rates and battery wear</span>
           </div>
 
           <div className="text-slate-300">
-            Real-time calculation updates dynamically as you adjust tariffs or weights
+            For full 10-vehicle fleet optimization, tune the sliders in Chapter 05 below.
           </div>
         </div>
       </div>
 
-      {/* KPI Highlight Strip Below Showcase */}
+      {/* KPI Highlight Strip Below Showcase (24h Full Fleet Metrics) */}
       {kpis && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl w-full mt-10">
-          <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
-            <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
-              <span>LIVE OPTIMIZED COST</span>
-              <TrendingDown className="w-4 h-4 text-red-400" />
-            </div>
-            <div className="text-2xl sm:text-3xl font-mono font-bold text-white">
-              ₹{kpis.total_optimized_cost_inr.toLocaleString()}
-            </div>
-            <div className="text-xs text-red-400 font-mono mt-1">
-              Saved ₹{kpis.savings_inr.toLocaleString()} / day ({kpis.savings_percent}% reduction)
-            </div>
+        <div className="max-w-4xl w-full mt-10">
+          <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+            Full 10-Vehicle Fleet Daily Economics ( Delhi NCR 24h Window )
           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
+              <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
+                <span>OPTIMIZED FLEET COST</span>
+                <TrendingDown className="w-4 h-4 text-red-400" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-mono font-bold text-white">
+                ₹{kpis.total_optimized_cost_inr.toLocaleString()}
+              </div>
+              <div className="text-xs text-red-400 font-mono mt-1 font-semibold">
+                Saved ₹{kpis.savings_inr.toLocaleString()} / day ({kpis.savings_percent}% reduction)
+              </div>
+            </div>
 
-          <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
-            <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
-              <span>ON-TIME READINESS</span>
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
+            <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
+              <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
+                <span>ON-TIME READINESS</span>
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-mono font-bold text-amber-300">
+                {kpis.ready_on_time_pct}%
+              </div>
+              <div className="text-xs text-slate-400 font-mono mt-1">
+                15% mandatory safety buffer enforced
+              </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-mono font-bold text-amber-300">
-              {kpis.ready_on_time_pct}%
-            </div>
-            <div className="text-xs text-slate-400 font-mono mt-1">
-              15% mandatory safety buffer enforced
-            </div>
-          </div>
 
-          <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
-            <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
-              <span>FLEET ORCHESTRATION</span>
-              <Zap className="w-4 h-4 text-rose-400" />
-            </div>
-            <div className="text-2xl sm:text-3xl font-mono font-bold text-rose-300">
-              20 EVs / 3 Stations
-            </div>
-            <div className="text-xs text-slate-400 font-mono mt-1">
-              E-Rickshaws, Delivery Vans, Shuttles
+            <div className="glass-panel p-4 rounded-2xl border border-red-500/20 text-left hover:border-red-400/40 transition-all">
+              <div className="flex items-center justify-between text-slate-400 text-xs mb-1 font-mono">
+                <span>FLEET SCALE</span>
+                <Zap className="w-4 h-4 text-rose-400" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-mono font-bold text-rose-300">
+                10 EVs / 3 Stations
+              </div>
+              <div className="text-xs text-slate-400 font-mono mt-1">
+                24-Hour Time-of-Day Grid Arbitrage
+              </div>
             </div>
           </div>
         </div>
@@ -324,7 +368,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="flex flex-col items-center mt-10 gap-3">
         <button
           onClick={onExploreClick}
-          className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white font-extrabold font-display tracking-wider shadow-[0_0_30px_rgba(255,30,66,0.5)] active:scale-95 transition-all"
+          className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white font-extrabold font-display tracking-wider shadow-[0_0_30px_rgba(255,30,66,0.5)] active:scale-95 hover:brightness-110 transition-all"
         >
           <span>Explore Fleet Telemetry & Optimization</span>
           <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />

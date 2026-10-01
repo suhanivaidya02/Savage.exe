@@ -17,6 +17,7 @@ import { ExplainSection } from './components/ExplainSection';
 import { DisruptionSection } from './components/DisruptionSection';
 import { ApprovalSection } from './components/ApprovalSection';
 import { FooterSection } from './components/FooterSection';
+import { FeatureGuideModal } from './components/FeatureGuideModal';
 
 // API Services
 import {
@@ -65,6 +66,7 @@ export const App: React.FC = () => {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [mockMode, setMockMode] = useState(getForceMockMode());
   const [stationTint, setStationTint] = useState('#ff1e42'); // Hot Red
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
 
   // Unified Lenis + GSAP ScrollTrigger hook
   const { scrollProgress, activeSection, scrollTo } = useLenisScrollTrigger({
@@ -315,6 +317,7 @@ export const App: React.FC = () => {
         mockMode={mockMode}
         onToggleMockMode={handleToggleMockMode}
         approvalStatus={approvalStatus}
+        onOpenGuide={() => setIsGuideOpen(true)}
       />
 
       {/* Kinetic Hot Red Scroll Progress Track & Chapter Capsule */}
@@ -343,6 +346,8 @@ export const App: React.FC = () => {
               kpis={kpis}
               onExploreClick={() => scrollTo('problem')}
               onStationSelect={(color) => setStationTint(color)}
+              onOpenGuide={() => setIsGuideOpen(true)}
+              onTuneOptimizerClick={() => scrollTo('optimizer')}
             />
 
             {/* Chapter 2: The Problem */}
@@ -437,8 +442,16 @@ export const App: React.FC = () => {
           handleApprove,
           isApproving,
           scrollTo,
+          setIsGuideOpen,
         ]
       )}
+
+      {/* Interactive System Guide Modal */}
+      <FeatureGuideModal
+        isOpen={isGuideOpen}
+        onClose={() => setIsGuideOpen(false)}
+        onNavigateSection={(secId) => scrollTo(secId)}
+      />
     </div>
   );
 };
