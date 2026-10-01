@@ -348,6 +348,9 @@ export const App: React.FC = () => {
               onStationSelect={(color) => setStationTint(color)}
               onOpenGuide={() => setIsGuideOpen(true)}
               onTuneOptimizerClick={() => scrollTo('optimizer')}
+              onGoToSchedule={() => scrollTo('schedule')}
+              onGoToSavings={() => scrollTo('savings')}
+              onGoToDisruption={() => scrollTo('disruption')}
             />
 
             {/* Chapter 2: The Problem */}

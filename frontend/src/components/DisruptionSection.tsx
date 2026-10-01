@@ -61,9 +61,10 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           <div className="w-9 h-9 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center mb-3">
             <ZapOff className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Solar Hub S2 Down</h3>
-          <p className="text-[11px] text-slate-400">
-            Inverter failure at S2 solar canopy. 4 bays offline. Forces feeder reallocation.
+          <div className="text-[10px] font-mono uppercase text-rose-400 font-bold mb-0.5">EMERGENCY 1</div>
+          <h3 className="text-sm font-bold text-white mb-1">Solar Hub S2 Kharab Ho Gaya</h3>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            S2 charger me fault aaya. Dekhiye AI kaise bina delay ke gaadiyon ko S1 par redirect karta hai.
           </p>
         </button>
 
@@ -79,9 +80,10 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
             <TrendingUp className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Grid Tariff Surge</h3>
-          <p className="text-[11px] text-slate-400">
-            Grid emergency: 1.8x tariff hike during afternoon. Optimizer must curtail draw.
+          <div className="text-[10px] font-mono uppercase text-amber-400 font-bold mb-0.5">EMERGENCY 2</div>
+          <h3 className="text-sm font-bold text-white mb-1">Bijli Ke Daam Badh Gaye (Surge)</h3>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Grid ne achanak daam 1.8x badha diye. AI turant daytime charging rok kar raat me bhejta hai.
           </p>
         </button>
 
@@ -97,9 +99,10 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           <div className="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
             <AlertOctagon className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Station S1 Outage</h3>
-          <p className="text-[11px] text-slate-400">
-            Depot Main transformer maintenance. S1 offline for 4 hours (00:00 - 04:00).
+          <div className="text-[10px] font-mono uppercase text-cyan-400 font-bold mb-0.5">EMERGENCY 3</div>
+          <h3 className="text-sm font-bold text-white mb-1">Depot S1 Maintenance Outage</h3>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Main depot transformer band hua. AI turant S3 fast charger se emergency backup slots banata hai.
           </p>
         </button>
 
@@ -115,9 +118,10 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
             <Navigation className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Route Extension</h3>
-          <p className="text-[11px] text-slate-400">
-            Traffic congestion adds +40 km to Van V07 route, demanding additional kWh.
+          <div className="text-[10px] font-mono uppercase text-emerald-400 font-bold mb-0.5">EMERGENCY 4</div>
+          <h3 className="text-sm font-bold text-white mb-1">Gaadi Traffic Me Phas Gayi (+40km)</h3>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Van V07 ka route lamba ho gaya aur battery low ho gayi. AI ne next shift ke liye instant top-up diya.
           </p>
         </button>
       </div>
