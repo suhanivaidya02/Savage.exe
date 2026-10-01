@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Info, Zap } from 'lucide-react';
+import { Calendar, Info } from 'lucide-react';
 import { Vehicle, Shift, ChargingEvent, TariffSlot } from '../types';
 
 interface GanttScheduleSectionProps {
@@ -22,14 +22,13 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
     hour: number;
   } | null>(null);
 
-  const shiftMap = new Map(shifts.map((s) => [s.vehicle_id, s]));
-  const tariffMap = new Map(tariff.map((t) => [t.hour, t]));
+  const shiftMap = new Map<string, Shift>(shifts.map((s) => [s.vehicle_id, s]));
+  const tariffMap = new Map<number, TariffSlot>(tariff.map((t) => [t.hour, t]));
 
-  // 48 half-hour time slots
   const slots = Array.from({ length: 48 }, (_, i) => i);
 
   return (
-    <section id="schedule" className="relative min-h-screen flex flex-col justify-center px-2 sm:px-4 py-24 z-20 max-w-7xl mx-auto">
+    <section id="schedule" className="relative min-h-screen flex flex-col justify-center px-4 py-24 z-20 max-w-7xl mx-auto">
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-3">
           <Calendar className="w-3.5 h-3.5" />

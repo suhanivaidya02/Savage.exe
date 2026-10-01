@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Github, Cpu, Code2, Database, Award } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 export const FooterSection: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ export const FooterSection: React.FC = () => {
             AI Energy & EV Fleet Optimization Agent. Charge smart. Run longer. Spend less.
           </p>
           <span className="text-[11px] font-mono text-cyan-400/80 mt-2">
-            Built for AI Hackathon 2026 • Indian Urban Fleet Context
+            Built for AI Hackathon 2026 · Delhi NCR Fleet Optimization
           </span>
         </div>
 
@@ -35,7 +35,7 @@ export const FooterSection: React.FC = () => {
             React 18 + Vite + TS
           </span>
           <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 font-mono text-[11px] text-slate-300">
-            TailwindCSS + GSAP
+            TailwindCSS + Recharts
           </span>
           <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 font-mono text-[11px] text-slate-300">
             Lenis Smooth Scroll

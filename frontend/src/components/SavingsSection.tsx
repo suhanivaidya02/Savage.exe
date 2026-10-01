@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndianRupee, TrendingDown, ShieldAlert, Sparkles, CheckCircle } from 'lucide-react';
+import { IndianRupee, TrendingDown, Sparkles } from 'lucide-react';
 import {
   BarChart,
   Bar,
@@ -33,7 +33,6 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
     }
   ];
 
-  // Projected 30-day and 365-day fleet savings
   const monthlySavings = Math.round(kpis.savings_inr * 30);
   const annualSavings = Math.round(kpis.savings_inr * 365);
 
@@ -52,7 +51,6 @@ export const SavingsSection: React.FC<SavingsSectionProps> = ({ kpis }) => {
         </p>
       </div>
 
-      {/* Main Big Animated Metric Display */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* Left: Giant Savings Callout Card */}
         <div className="glass-panel p-8 rounded-2xl border border-neon-green/30 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-emerald-950/20 via-slate-900/60 to-cyan-950/20">

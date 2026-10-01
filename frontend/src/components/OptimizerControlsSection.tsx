@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Sliders, RefreshCw, Zap, Heart, Clock, Sparkles } from 'lucide-react';
+import { Sliders, RefreshCw, Sparkles, Heart, Zap, Clock } from 'lucide-react';
 import { Weights, KPIs } from '../types';
 
-interface OptimizerControlsProps {
+interface OptimizerControlsSectionProps {
   weights: Weights;
   kpis: KPIs | null;
   onOptimize: (weights: Weights) => Promise<void>;
   isLoading: boolean;
 }
 
-export const OptimizerControlsSection: React.FC<OptimizerControlsProps> = ({
+export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> = ({
   weights,
   kpis,
   onOptimize,
@@ -21,23 +21,23 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsProps> = ({
     setLocalWeights((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleApply = () => {
-    onOptimize(localWeights);
-  };
-
   const handlePreset = (preset: 'balanced' | 'eco_cost' | 'battery_preservation' | 'max_readiness') => {
     let newWeights: Weights;
     if (preset === 'eco_cost') {
-      newWeights = { w_cost: 2.5, w_health: 0.5, w_avail: 1.0 };
+      newWeights = { w_cost: 2.5, w_health: 0.8, w_avail: 1.0 };
     } else if (preset === 'battery_preservation') {
-      newWeights = { w_cost: 0.8, w_health: 2.5, w_avail: 1.0 };
+      newWeights = { w_cost: 1.0, w_health: 2.5, w_avail: 1.0 };
     } else if (preset === 'max_readiness') {
-      newWeights = { w_cost: 0.8, w_health: 0.8, w_avail: 2.8 };
+      newWeights = { w_cost: 0.8, w_health: 1.0, w_avail: 2.8 };
     } else {
       newWeights = { w_cost: 1.0, w_health: 1.0, w_avail: 1.0 };
     }
     setLocalWeights(newWeights);
     onOptimize(newWeights);
+  };
+
+  const handleApply = () => {
+    onOptimize(localWeights);
   };
 
   return (
@@ -51,7 +51,7 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsProps> = ({
           Tune the MILP Optimizer
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base">
-          Adjust the objective weights. The backend solves the exact mathematical formulation in PuLP CBC
+          Adjust objective weights. The backend solves the exact mathematical formulation in PuLP CBC
           and updates all fleet schedules in real time.
         </p>
       </div>

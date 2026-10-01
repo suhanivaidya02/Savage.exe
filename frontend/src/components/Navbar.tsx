@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Activity, EyeOff, Eye, Database, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { Zap, Database, ShieldAlert, CheckCircle2, EyeOff, Eye } from 'lucide-react';
 import { KPIs } from '../types';
 
 interface NavbarProps {
@@ -42,11 +42,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3 transition-all duration-300 backdrop-blur-md bg-[#05080f]/80 border-b border-cyan-500/15">
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 md:px-8 py-3 transition-all duration-300 backdrop-blur-md bg-[#05080f]/85 border-b border-cyan-500/15">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand Wordmark */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo('hero')}>
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
             <Zap className="w-5 h-5 text-black fill-current" />
           </div>
           <div>
@@ -55,11 +55,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 VIREXA
               </span>
               <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                Agentic Fleet
+                AI Fleet Grid
               </span>
             </div>
             <p className="text-[10px] text-slate-400 tracking-tight hidden sm:block">
-              AI Energy & EV Optimizer
+              Commercial EV Energy Optimizer
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={sec.id}
                 onClick={() => scrollTo(sec.id)}
-                className={`px-2.5 py-1 rounded text-xs transition-colors duration-200 ${
+                className={`px-2.5 py-1 rounded-lg text-xs transition-colors duration-200 ${
                   isActive
                     ? 'text-cyan-300 bg-cyan-950/40 border border-cyan-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
@@ -117,7 +117,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Controls: Mock Mode & Reduce Motion */}
         <div className="flex items-center gap-2">
-          {/* Mock Mode Toggle */}
           <button
             onClick={onToggleMockMode}
             title={mockMode ? "Running in Offline Mock Mode" : "Connected to Live FastAPI Backend"}
@@ -131,7 +130,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-mono text-[11px]">{mockMode ? "MOCK" : "API"}</span>
           </button>
 
-          {/* Reduce Motion Toggle */}
           <button
             onClick={onToggleReduceMotion}
             title={reduceMotion ? "Enable Smooth Scroll & Motion" : "Reduce Motion / Low Spec"}

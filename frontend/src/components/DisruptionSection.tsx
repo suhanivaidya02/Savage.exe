@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import {
   AlertOctagon,
-  Flame,
   ZapOff,
+  TrendingUp,
   Navigation,
   RefreshCw,
   ArrowRight,
   ShieldAlert,
-  GitCompare,
-  TrendingUp,
-  TrendingDown
+  GitCompare
 } from 'lucide-react';
 import { DisruptionDiff } from '../types';
 
@@ -38,25 +36,24 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
       <div className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono mb-3">
           <AlertOctagon className="w-3.5 h-3.5" />
-          <span>WHAT-IF SCENARIOS & RESILIENCE STRESS-TESTING</span>
+          <span>WHAT-IF SCENARIOS & ADAPTIVE REPLANNING</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black font-display text-white">
           Simulate Real-World Disruptions
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base">
-          Real fleet operations face constant chaos. Test how Virexa reacts to breakdowns, tariff spikes,
-          station outages, and route diversions with instant replanning and diff auditing.
+          Trigger sudden operational anomalies. Virexa recalculates delta schedules in &lt;1 second,
+          presenting an impact diff for human verification.
         </p>
       </div>
 
-      {/* 4 Disruption Action Buttons */}
+      {/* Disruption Trigger Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {/* Disruption 1: Vehicle Breakdown */}
         <button
-          onClick={() => handleDisrupt('vehicle_breakdown', { vehicle_id: 'V03' })}
+          onClick={() => handleDisrupt('charger_down', { station_id: 'S2' })}
           disabled={isLoading}
           className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
-            activeDisruption === 'vehicle_breakdown'
+            activeDisruption === 'charger_down'
               ? 'border-rose-500 bg-rose-950/30 shadow-[0_0_20px_rgba(255,51,102,0.3)]'
               : 'border-slate-800 hover:border-rose-500/40'
           }`}
@@ -64,15 +61,14 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           <div className="w-9 h-9 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center mb-3">
             <ZapOff className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Vehicle Breakdown</h3>
+          <h3 className="text-sm font-bold text-white mb-1">Solar Hub S2 Down</h3>
           <p className="text-[11px] text-slate-400">
-            E-Rickshaw V03 suffers mechanical fault. Pulled from service and quarantined.
+            Inverter failure at S2 solar canopy. 4 bays offline. Forces feeder reallocation.
           </p>
         </button>
 
-        {/* Disruption 2: Tariff Spike */}
         <button
-          onClick={() => handleDisrupt('tariff_spike', { start_hour: 10, end_hour: 16, multiplier: 2.5 })}
+          onClick={() => handleDisrupt('tariff_spike', { spike_factor: 1.8, hours: [14, 15, 16] })}
           disabled={isLoading}
           className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
             activeDisruption === 'tariff_spike'
@@ -81,20 +77,19 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           }`}
         >
           <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
-            <Flame className="w-5 h-5" />
+            <TrendingUp className="w-5 h-5" />
           </div>
-          <h3 className="text-sm font-bold text-white mb-1">Grid Tariff Spike</h3>
+          <h3 className="text-sm font-bold text-white mb-1">Grid Tariff Surge</h3>
           <p className="text-[11px] text-slate-400">
-            Midday grid emergency: 2.5x tariff surge between 10:00 - 16:00.
+            Grid emergency: 1.8x tariff hike during afternoon. Optimizer must curtail draw.
           </p>
         </button>
 
-        {/* Disruption 3: Station Down */}
         <button
-          onClick={() => handleDisrupt('station_down', { station_id: 'S1', duration_hours: 4, start_hour: 0 })}
+          onClick={() => handleDisrupt('charger_down', { station_id: 'S1' })}
           disabled={isLoading}
           className={`glass-panel p-5 rounded-xl border text-left transition-all hover:scale-[1.02] ${
-            activeDisruption === 'station_down'
+            activeDisruption === 'charger_down_s1'
               ? 'border-cyan-500 bg-cyan-950/30 shadow-[0_0_20px_rgba(0,229,255,0.3)]'
               : 'border-slate-800 hover:border-cyan-500/40'
           }`}
@@ -108,7 +103,6 @@ export const DisruptionSection: React.FC<DisruptionSectionProps> = ({
           </p>
         </button>
 
-        {/* Disruption 4: Longer Route */}
         <button
           onClick={() => handleDisrupt('longer_route', { vehicle_id: 'V07', extra_km: 40 })}
           disabled={isLoading}
