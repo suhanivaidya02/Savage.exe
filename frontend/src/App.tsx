@@ -317,6 +317,7 @@ export const App: React.FC = () => {
       <Navbar
         kpis={kpis}
         activeSection={activeSection}
+        scrollProgress={scrollProgress}
         reduceMotion={reduceMotion}
         onToggleReduceMotion={handleToggleReduceMotion}
         mockMode={mockMode}

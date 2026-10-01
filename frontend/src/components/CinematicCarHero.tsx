@@ -27,33 +27,17 @@ export const CinematicCarHero: React.FC<CinematicCarHeroProps> = ({
   const currentChapter = SECTION_NAMES[activeSection] || '01 · Vehicle Showcase';
 
   return (
-    <div className="fixed top-[57px] left-0 right-0 z-30 pointer-events-none">
-      {/* 2px Kinetic Hot Red Scroll Progress Line */}
-      <div className="w-full h-[2px] bg-slate-900/60 relative">
-        <div
-          className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 shadow-[0_0_8px_#ff1e42]"
-          style={{ width: `${Math.round(scrollProgress * 100)}%` }}
-        />
-
-        {/* Micro indicator gliding on the line */}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_#ff1e42] flex items-center justify-center pointer-events-none"
-          style={{ left: `${Math.round(scrollProgress * 100)}%` }}
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-white" />
-        </div>
-      </div>
-
-      {/* Floating Micro Chapter Capsule */}
-      <div className="max-w-7xl mx-auto px-4 flex justify-end pt-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#070305]/90 border border-red-500/30 text-[11px] font-mono text-red-300 backdrop-blur-md shadow-lg pointer-events-auto">
-          <Zap className="w-3 h-3 text-red-500 fill-current animate-pulse" />
-          <span className="text-slate-400 uppercase tracking-wider text-[10px]">Active Chapter:</span>
-          <span className="font-bold text-white">{currentChapter}</span>
-          <span className="text-slate-500">|</span>
-          <span className="text-red-400 font-bold">{Math.round(scrollProgress * 100)}%</span>
-        </div>
+    <div className="fixed bottom-4 right-4 z-30 pointer-events-none transition-opacity duration-300">
+      {/* Floating Minimal Chapter Capsule */}
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#050204]/90 border border-white/10 text-[11px] font-mono text-slate-300 backdrop-blur-md shadow-xl pointer-events-auto">
+        <Zap className="w-3 h-3 text-red-500 fill-current animate-pulse" />
+        <span className="text-slate-400 uppercase tracking-wider text-[10px]">Chapter:</span>
+        <span className="font-semibold text-white">{currentChapter}</span>
+        <span className="text-slate-600">|</span>
+        <span className="text-red-400 font-bold">{Math.round(scrollProgress * 100)}%</span>
       </div>
     </div>
   );
 };
+
+export default CinematicCarHero;

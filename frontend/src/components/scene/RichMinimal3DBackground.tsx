@@ -24,6 +24,10 @@ const KineticCore: React.FC<{
   const wireCoreRef = useRef<THREE.Mesh>(null);
   const tickNotchesRef = useRef<THREE.Points>(null);
 
+  // Track scroll velocity for dynamic kinetic spin-up on scroll
+  const lastScrollRef = useRef(scrollProgress);
+  const scrollVelocityRef = useRef(0);
+
   // Precision tick notches on the outer orbital ring
   const tickPositions = useMemo(() => {
     const count = 48;
@@ -41,57 +45,92 @@ const KineticCore: React.FC<{
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
 
-    // 1. Smooth Mouse Parallax Tilt
+    // Calculate instantaneous scroll velocity (momentum boost)
+    const currentScroll = scrollProgress;
+    const scrollDiff = Math.abs(currentScroll - lastScrollRef.current);
+    lastScrollRef.current = currentScroll;
+    const instantVelocity = THREE.MathUtils.clamp(scrollDiff * 35, 0, 4.0);
+    scrollVelocityRef.current = THREE.MathUtils.lerp(
+      scrollVelocityRef.current,
+      instantVelocity,
+      delta * 6.0
+    );
+    const spinMultiplier = 1.0 + scrollVelocityRef.current * 3.5;
+
+    // 1. NOTICEABLE 3D SPATIAL PATH DRIVEN BY SCROLL
     if (masterGroupRef.current) {
-      const targetRotX = mouse.current.y * 0.14 + (scrollProgress - 0.5) * 0.4;
-      const targetRotY = mouse.current.x * 0.18;
+      // Dynamic 3D curved trajectory as user scrolls through sections
+      // Center at hero -> glides right -> weaves left -> returns center
+      const targetX = Math.sin(currentScroll * Math.PI * 2.2) * 1.75;
+      const targetY = 0.35 - (currentScroll * 2.8) + Math.sin(time * 0.4) * 0.08;
+      const targetZ = Math.cos(currentScroll * Math.PI * 2) * 1.3 - 0.4;
+
+      // Smooth interpolation for luxurious feel
+      masterGroupRef.current.position.x = THREE.MathUtils.lerp(
+        masterGroupRef.current.position.x,
+        targetX,
+        delta * 3.5
+      );
+      masterGroupRef.current.position.y = THREE.MathUtils.lerp(
+        masterGroupRef.current.position.y,
+        targetY,
+        delta * 3.5
+      );
+      masterGroupRef.current.position.z = THREE.MathUtils.lerp(
+        masterGroupRef.current.position.z,
+        targetZ,
+        delta * 3.5
+      );
+
+      // Rotation strongly coupled to scroll progression + subtle mouse parallax
+      const targetRotX = mouse.current.y * 0.14 + Math.sin(currentScroll * Math.PI * 2) * 0.55;
+      const targetRotY = mouse.current.x * 0.18 + (currentScroll * Math.PI * 2.8);
+      const targetRotZ = currentScroll * Math.PI * 1.6;
+
       masterGroupRef.current.rotation.x = THREE.MathUtils.lerp(
         masterGroupRef.current.rotation.x,
         targetRotX,
-        delta * 3.0
+        delta * 4.0
       );
       masterGroupRef.current.rotation.y = THREE.MathUtils.lerp(
         masterGroupRef.current.rotation.y,
         targetRotY,
-        delta * 3.0
+        delta * 4.0
       );
-
-      // Subtle vertical parallax drift based on scroll
-      const targetY = (scrollProgress - 0.5) * -1.4 + Math.sin(time * 0.4) * 0.08;
-      masterGroupRef.current.position.y = THREE.MathUtils.lerp(
-        masterGroupRef.current.position.y,
-        targetY,
-        delta * 2.5
+      masterGroupRef.current.rotation.z = THREE.MathUtils.lerp(
+        masterGroupRef.current.rotation.z,
+        targetRotZ,
+        delta * 4.0
       );
     }
 
-    // 2. Counter-rotating Gyroscopic Rings (Calculated, Hypnotic Speeds)
+    // 2. Counter-rotating Gyroscopic Rings with Scroll Velocity Acceleration
     if (outerRingRef.current) {
-      outerRingRef.current.rotation.z += delta * 0.09;
-      outerRingRef.current.rotation.y += delta * 0.05;
+      outerRingRef.current.rotation.z += delta * (0.12 * spinMultiplier);
+      outerRingRef.current.rotation.y += delta * (0.07 * spinMultiplier);
     }
     if (middleRingRef.current) {
-      middleRingRef.current.rotation.x += delta * 0.13;
-      middleRingRef.current.rotation.z -= delta * 0.11;
+      middleRingRef.current.rotation.x += delta * (0.16 * spinMultiplier);
+      middleRingRef.current.rotation.z -= delta * (0.14 * spinMultiplier);
     }
     if (innerRingRef.current) {
-      innerRingRef.current.rotation.y -= delta * 0.17;
-      innerRingRef.current.rotation.x += delta * 0.08;
+      innerRingRef.current.rotation.y -= delta * (0.22 * spinMultiplier);
+      innerRingRef.current.rotation.x += delta * (0.11 * spinMultiplier);
     }
 
     // 3. Faceted Gem Core Rotation & Harmonic Breathing
     if (coreMeshRef.current && wireCoreRef.current) {
-      coreMeshRef.current.rotation.x += delta * 0.22;
-      coreMeshRef.current.rotation.y += delta * 0.18;
+      coreMeshRef.current.rotation.x += delta * (0.28 * spinMultiplier);
+      coreMeshRef.current.rotation.y += delta * (0.24 * spinMultiplier);
       wireCoreRef.current.rotation.x = coreMeshRef.current.rotation.x;
       wireCoreRef.current.rotation.y = coreMeshRef.current.rotation.y;
 
-      const breathe = 1.0 + Math.sin(time * 1.4) * 0.045;
+      const breathe = 1.0 + Math.sin(time * 1.4) * 0.045 + (scrollVelocityRef.current * 0.04);
       coreMeshRef.current.scale.set(breathe, breathe, breathe);
       wireCoreRef.current.scale.set(breathe * 1.08, breathe * 1.08, breathe * 1.08);
     }
 
-    // 4. Tick notches rotate with outer ring
+    // 4. Tick notches track outer ring
     if (tickNotchesRef.current && outerRingRef.current) {
       tickNotchesRef.current.rotation.z = outerRingRef.current.rotation.z;
       tickNotchesRef.current.rotation.y = outerRingRef.current.rotation.y;
@@ -104,7 +143,7 @@ const KineticCore: React.FC<{
       <pointLight
         position={[0, 0, 0]}
         intensity={2.2}
-        distance={10}
+        distance={11}
         decay={2}
         color={stationColor}
       />
@@ -163,7 +202,7 @@ const KineticCore: React.FC<{
         />
       </mesh>
 
-      {/* CENTRAL FACETED STEALTH ICOSAHEDRON (Solid core with flat shading for rich facets) */}
+      {/* CENTRAL FACETED STEALTH ICOSAHEDRON (Faceted Flat Shading) */}
       <mesh ref={coreMeshRef}>
         <icosahedronGeometry args={[0.78, 0]} />
         <meshStandardMaterial
@@ -193,10 +232,11 @@ const KineticCore: React.FC<{
 // -------------------------------------------------------------
 // 2. Ethereal Micro-Particle Stardust Cloud (Non-glaring Depth)
 // -------------------------------------------------------------
-const StardustWave: React.FC<{ count?: number; stationColor: string }> = ({
-  count = 280,
-  stationColor,
-}) => {
+const StardustWave: React.FC<{
+  count?: number;
+  stationColor: string;
+  scrollProgress: number;
+}> = ({ count = 280, stationColor, scrollProgress }) => {
   const pointsRef = useRef<THREE.Points>(null);
 
   const [positions, colors] = useMemo(() => {
@@ -208,7 +248,6 @@ const StardustWave: React.FC<{ count?: number; stationColor: string }> = ({
     const warmFlame = new THREE.Color('#ea580c');
 
     for (let i = 0; i < count; i++) {
-      // Cylindrical volumetric field spread
       const radius = 2.5 + Math.random() * 9.5;
       const angle = Math.random() * Math.PI * 2;
       const height = (Math.random() - 0.5) * 11;
@@ -217,7 +256,6 @@ const StardustWave: React.FC<{ count?: number; stationColor: string }> = ({
       pos[i * 3 + 1] = height;
       pos[i * 3 + 2] = Math.sin(angle) * radius - 2;
 
-      // Color palette tuned to be luxurious and soft
       const rand = Math.random();
       const chosenColor =
         rand > 0.65 ? primary : rand > 0.35 ? deepCrimson : rand > 0.15 ? titaniumDark : warmFlame;
@@ -233,9 +271,13 @@ const StardustWave: React.FC<{ count?: number; stationColor: string }> = ({
     if (!pointsRef.current) return;
     const time = state.clock.getElapsedTime();
 
-    // Gentle global orbit
-    pointsRef.current.rotation.y = time * 0.025;
-    pointsRef.current.rotation.z = Math.sin(time * 0.08) * 0.04;
+    // Orbit + smooth scroll depth elevation
+    pointsRef.current.rotation.y = time * 0.025 + scrollProgress * 1.5;
+    pointsRef.current.position.y = THREE.MathUtils.lerp(
+      pointsRef.current.position.y,
+      -scrollProgress * 3.0,
+      delta * 3.0
+    );
   });
 
   return (
@@ -274,8 +316,12 @@ const SubtleFloorGrid: React.FC<{ scrollProgress: number }> = ({ scrollProgress 
 
   useFrame((state, delta) => {
     if (!gridRef.current) return;
-    // Slow infinite forward motion
     gridRef.current.position.z = (gridRef.current.position.z + delta * 0.35) % 2;
+    gridRef.current.position.y = THREE.MathUtils.lerp(
+      gridRef.current.position.y,
+      scrollProgress * 0.6,
+      delta * 2.5
+    );
   });
 
   return (
@@ -307,16 +353,16 @@ const SceneCanvas: React.FC<{
       {/* Cinematic Studio Lighting Architecture */}
       <ambientLight intensity={0.55} color="#1c070e" />
 
-      {/* Main Specular Key Light (Crisp reflections on metallic rings) */}
+      {/* Main Specular Key Light */}
       <directionalLight position={[6, 9, 6]} intensity={1.4} color="#ffffff" />
 
       {/* Hot Red Fill Light from left */}
       <directionalLight position={[-7, 2, -3]} intensity={1.1} color={stationColor} />
 
-      {/* Deep Crimson Backlight for subtle edge contours */}
+      {/* Deep Crimson Backlight */}
       <directionalLight position={[0, -5, -6]} intensity={0.7} color="#ff3355" />
 
-      {/* Core Kinetic Gyroscope & Cyber Polyhedron */}
+      {/* Core Kinetic Gyroscope & Cyber Polyhedron (moves with scroll!) */}
       <KineticCore
         scrollProgress={scrollProgress}
         stationColor={stationColor}
@@ -324,7 +370,11 @@ const SceneCanvas: React.FC<{
       />
 
       {/* Ambient Stardust Wave */}
-      <StardustWave count={260} stationColor={stationColor} />
+      <StardustWave
+        count={260}
+        stationColor={stationColor}
+        scrollProgress={scrollProgress}
+      />
 
       {/* Subtle Distant Perspective Floor */}
       <SubtleFloorGrid scrollProgress={scrollProgress} />
@@ -344,7 +394,6 @@ export const RichMinimal3DBackground: React.FC<RichMinimal3DBackgroundProps> = (
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Normalize to [-1, 1]
       mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
@@ -353,7 +402,6 @@ export const RichMinimal3DBackground: React.FC<RichMinimal3DBackgroundProps> = (
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Graceful fallback if reduceMotion is active
   if (reduceMotion) {
     return (
       <div className="fixed inset-0 pointer-events-none z-0 bg-[#040204]">
@@ -388,7 +436,7 @@ export const RichMinimal3DBackground: React.FC<RichMinimal3DBackgroundProps> = (
         />
       </Canvas>
 
-      {/* Luxurious Vignette & Ambient Radial Mask: Keeps text crystal-clear, zero glare */}
+      {/* Luxurious Vignette & Ambient Radial Mask */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -397,7 +445,7 @@ export const RichMinimal3DBackground: React.FC<RichMinimal3DBackgroundProps> = (
         }}
       />
 
-      {/* Subtle Horizon Glow Line (Micro-detail) */}
+      {/* Subtle Horizon Glow Line */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#040204] via-[#040204]/80 to-transparent pointer-events-none" />
     </div>
   );

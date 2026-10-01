@@ -16,7 +16,9 @@ import {
   TrendingDown,
   Sparkles,
   ShieldCheck,
-  Moon
+  Moon,
+  LayoutGrid,
+  BarChart3
 } from 'lucide-react';
 import { Vehicle, Shift, ChargingEvent, TariffSlot } from '../types';
 
@@ -151,23 +153,25 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
         <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
           <button
             onClick={() => setViewMode('cards')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
               viewMode === 'cards'
                 ? 'bg-red-500 text-white shadow-md shadow-red-500/30'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            📋 Simple Vehicle Cards (Recommended)
+            <LayoutGrid className="w-3.5 h-3.5" />
+            Vehicle Cards (Recommended)
           </button>
           <button
             onClick={() => setViewMode('matrix')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
               viewMode === 'matrix'
                 ? 'bg-red-500 text-white shadow-md shadow-red-500/30'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            📊 24-Hour Master Grid (Matrix View)
+            <BarChart3 className="w-3.5 h-3.5" />
+            24-Hour Matrix Grid
           </button>
         </div>
 
@@ -324,10 +328,10 @@ export const GanttScheduleSection: React.FC<GanttScheduleSectionProps> = ({
 
                         if (isCharging) {
                           colorClass = 'bg-red-500 shadow-[0_0_6px_#ff1e42]';
-                          title = `${h}:00 - ⚡ Smart Charging (${primaryStation})`;
+                          title = `${h}:00 - Smart Charging (${primaryStation})`;
                         } else if (isDuty) {
                           colorClass = 'bg-amber-500 shadow-[0_0_4px_#ff6b2b]';
-                          title = `${h}:00 - 🚚 Active Shift Delivery`;
+                          title = `${h}:00 - Active Shift Delivery`;
                         }
 
                         return (

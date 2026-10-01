@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sliders, Sparkles, Heart, Zap, Clock, IndianRupee, ArrowUpDown, TrendingDown, HelpCircle, ShieldCheck } from 'lucide-react';
+import { Sliders, Sparkles, Heart, Zap, Clock, IndianRupee, ArrowUpDown, TrendingDown, HelpCircle, ShieldCheck, Moon, Sun, Flame, Scale, Shield } from 'lucide-react';
 import { Weights, TariffRates, KPIs } from '../types';
 
 interface OptimizerControlsSectionProps {
@@ -137,7 +137,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             {/* Night Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">🌙 Night Off-Peak:</span>
+                <span className="text-slate-300 font-bold flex items-center gap-1.5">
+                  <Moon className="w-3.5 h-3.5 text-emerald-400" />
+                  Night Off-Peak:
+                </span>
                 <span className="font-bold text-red-400 text-sm">&#8377;{tariffRates.night.toFixed(1)}/kWh</span>
               </div>
               <input
@@ -155,7 +158,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             {/* Solar Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">☀️ Midday Clean Solar:</span>
+                <span className="text-slate-300 font-bold flex items-center gap-1.5">
+                  <Sun className="w-3.5 h-3.5 text-amber-400" />
+                  Midday Clean Solar:
+                </span>
                 <span className="font-bold text-amber-400 text-sm">&#8377;{tariffRates.solar.toFixed(1)}/kWh</span>
               </div>
               <input
@@ -173,7 +179,10 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             {/* Peak Rate Slider */}
             <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
               <div className="flex justify-between items-center text-xs font-mono mb-1">
-                <span className="text-slate-300 font-bold">🔥 Evening Grid Peak:</span>
+                <span className="text-slate-300 font-bold flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-rose-400" />
+                  Evening Grid Peak:
+                </span>
                 <span className="font-bold text-rose-400 text-sm">&#8377;{tariffRates.peak.toFixed(1)}/kWh</span>
               </div>
               <input
@@ -208,27 +217,31 @@ export const OptimizerControlsSection: React.FC<OptimizerControlsSectionProps> =
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => handlePreset('balanced')}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all flex items-center gap-1.5"
               >
-                ⚖️ Balanced (Recommended)
+                <Scale className="w-3.5 h-3.5 text-slate-300" />
+                Balanced (Recommended)
               </button>
               <button
                 onClick={() => handlePreset('eco_cost')}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-500/40 transition-all"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-500/40 transition-all flex items-center gap-1.5"
               >
-                💰 Max Savings (Cost First)
+                <TrendingDown className="w-3.5 h-3.5 text-emerald-400" />
+                Max Savings (Cost First)
               </button>
               <button
                 onClick={() => handlePreset('battery_preservation')}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40 transition-all"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40 transition-all flex items-center gap-1.5"
               >
-                🛡️ Battery Preservation (Health First)
+                <Shield className="w-3.5 h-3.5 text-amber-400" />
+                Battery Preservation (Health First)
               </button>
               <button
                 onClick={() => handlePreset('max_readiness')}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-500/40 transition-all"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-500/40 transition-all flex items-center gap-1.5"
               >
-                ⚡ Fast Ready (Shift Guarantee)
+                <Zap className="w-3.5 h-3.5 text-rose-400" />
+                Fast Ready (Shift Guarantee)
               </button>
             </div>
           </div>

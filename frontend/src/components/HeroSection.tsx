@@ -7,6 +7,7 @@ import {
   Sparkles,
   BatteryCharging,
   Sun,
+  Moon,
   Flame,
   Gauge,
   ArrowDown,
@@ -251,7 +252,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              🌙 S1 Depot (Night &#8377;5)
+              <Moon className="w-3.5 h-3.5 inline mr-1 text-slate-300" />
+              S1 Depot (Night &#8377;5)
             </button>
             <button
               onClick={() => handleSelect('S2')}
@@ -261,7 +263,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              ☀️ S2 Solar (Clean &#8377;6)
+              <Sun className="w-3.5 h-3.5 inline mr-1 text-amber-300" />
+              S2 Solar (Clean &#8377;6)
             </button>
             <button
               onClick={() => handleSelect('S3')}
@@ -271,7 +274,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              🔥 S3 DC Fast (Peak &#8377;11)
+              <Flame className="w-3.5 h-3.5 inline mr-1 text-rose-300" />
+              S3 DC Fast (Peak &#8377;11)
             </button>
           </div>
         </div>
