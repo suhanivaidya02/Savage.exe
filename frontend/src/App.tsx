@@ -45,8 +45,8 @@ import {
   DisruptionDiff,
 } from './types';
 
-// Minimalist Red & Black Background Animation
-import { MinimalRedBlackBackground } from './components/scene/MinimalRedBlackBackground';
+// Rich Minimalist 3D Background Animation
+import { RichMinimal3DBackground } from './components/scene/RichMinimal3DBackground';
 
 // Initial default tariff rates in Delhi NCR
 const DEFAULT_TARIFF_RATES: TariffRates = {
@@ -332,8 +332,8 @@ export const App: React.FC = () => {
         reduceMotion={reduceMotion}
       />
 
-      {/* MINIMALIST RED & BLACK LIGHTWEIGHT BACKGROUND (z-0) */}
-      <MinimalRedBlackBackground
+      {/* RICH MINIMALIST 3D KINETIC BACKGROUND (z-0) */}
+      <RichMinimal3DBackground
         scrollProgress={scrollProgress}
         reduceMotion={reduceMotion}
         stationColor={stationTint}
